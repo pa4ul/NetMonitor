@@ -1,7 +1,92 @@
 @startuml
 
-class System{
-    - id: int
+class Monitor <<aggregate>>{
+    - Id: int
+    - Guid : Guid
+    - Name: string
+    - Hosts : IReadOnlyCollection<Host>
+    + Monitor(string name)
+    + AddHost(Host host)
+    + RemoveHost(Host host)
+    + CurrentQuantity()
 }
+
+class Host <<aggregate>>{
+    -Id: int
+    -Hostname: string
+    -Alias: string?
+    -IPAdress: string
+    -Description: Description
+    -ServicesInUse: IReadOnlyCollection<Service>
+    +Host(string hostname, string ipadress, string description)
+    +AddService(Service service)
+    +RemoveService(Service service)
+    +SetAlias(string alias)
+    +SetIP(string ip)
+    +SetHostname(string hostname)
+    +SetDescription(string desc)
+}
+class Service{
+    -Id: int
+    -Host: Host
+    -NormalInterval: int
+    -RetryInterval: int
+    -Description: Description
+    -ProducedWarnings: IReadOnlyCollection<Warning>
+    +Service(Host host, int ninterval, int rinterval, string description)
+    +SetNormalInterval(int n)
+    +SetRetryInterval(int r)
+    +SetDescription(string desc)
+    +CreateWarning()
+
+}
+
+class CustomService{
+    -Command: string
+    -ServiceType: string/Discriminator/
+    +CustomService(string command)
+}
+
+class Description <<value object>>{
+    -Description: string
+    -DescriptionLong: string?
+    +Description(string description)
+}
+
+class Warning{
+    -Id: int
+    -Host: Host
+    -Service: Service
+    -Description: Description
+    -Priority: int
+    -Date: DateTime
+    +Warning(Host host, Service Service, int priority, DateTime date, string description)
+}
+
+class CriticalWarning{
+    -CVE: string
+    -Fixed: bool?
+    -WarningType: string/Discriminator/
+    +Warning(string CVE)
+}
+
+class DeviceType <<aggregate>>{
+    -Id: int
+    -Type: string
+    -OperatingSystem: string?
+    +DeviceType(string type)
+    +SetOS(string os)
+}
+
+CriticalWarning -up-|> Warning
+CustomService -up-|> Service
+Host *--> Description
+Service *--> Description
+Warning *--> Description
+Host <--> Service
+Monitor o--> Host
+DeviceType o--> Host
+Service <--> Warning
+
 
 @enduml
