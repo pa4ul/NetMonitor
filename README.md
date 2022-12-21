@@ -10,7 +10,7 @@
 
 ###
 
-<p align="left">Implementieren Sie eine Applikation nach dem Code First Prinzip. Diese Applikation muss eine eigenständige Implementierung und somit eine Implementierung unabhängig von den Beispielen bzw. Übungsaufgaben vom Unterricht umfassen.<br><br>Mindestanforderungen:
+<p align="left">Implementieren Sie eine Applikation nach dem Code First Prinzip. Diese Applikation muss eine eigenständige Implementierung und somit eine Implementierung unabhängig von den Beispielen bzw. Übungsaufgaben vom Unterricht umfassen.<br><br><b>Mindestanforderungen:</b>
 <br>• Mindestens 8 Modelklassen, wobei zwischen mindestens 2 Modelklassen eine Vererbung mit einem Discriminator implementiert sein muss.
 <br>• Umsetzung von Value Objects und von Properties für die Fremdschlüsselfelder.
 <br>• Zwei Modelkassen sind jeweils ein Aggregate mit einer Readonly Collection und einem Backing Field.
@@ -20,7 +20,7 @@
 <br>• Für jede Methode ist ein eigener Success Test in einem XUnit Testprojekt umgesetzt.
 <br>   
 
-<br>• Erweiterungsmöglichkeiten für eine bessere Beurteilung:
+<br> <b> Erweiterungsmöglichkeiten für eine bessere Beurteilung: </b>
 <br>• Umsetzung von beidseitigen Naviations.
 <br>• Zusätzliche Modelkassen bzw. Methoden mit entsprechenden Funktionalitäten sind implementiert.
 <br>• Die Datenbank wird mit den in den Modelklassen enthaltenen Datentypdefinitionen erstellt und mit passenden Testdaten befüllt.
