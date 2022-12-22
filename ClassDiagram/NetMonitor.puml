@@ -18,7 +18,7 @@ class Host <<aggregate>>{
     -IPAdress: string
     -Description: Description
     -ServicesInUse: IReadOnlyCollection<Service>
-    +Host(string hostname, string ipadress, string description)
+    +Host(string hostname, string ipadress, Description description)
     +AddService(Service service)
     +RemoveService(Service service)
     +SetAlias(string alias)
@@ -26,18 +26,21 @@ class Host <<aggregate>>{
     +SetHostname(string hostname)
     +SetDescription(string desc)
 }
-class Service{
+class Service<<aggregate>>{
     -Id: int
     -Host: Host
     -NormalInterval: int
     -RetryInterval: int
     -Description: Description
     -ProducedWarnings: IReadOnlyCollection<Warning>
-    +Service(Host host, int ninterval, int rinterval, string description)
+    +Service(Host host, int ninterval, int rinterval, Description description)
     +SetNormalInterval(int n)
     +SetRetryInterval(int r)
     +SetDescription(string desc)
     +CreateWarning()
+    +ReviewWarning(Warning warning, bool fixed, string notes)
+    +CalculateAveragePriority()
+    +GetLastWarning()
 
 }
 
@@ -50,7 +53,6 @@ class CustomService{
 class Description <<value object>>{
     -Description: string
     -DescriptionLong: string?
-    +Description(string description)
 }
 
 class Warning{
@@ -60,14 +62,16 @@ class Warning{
     -Description: Description
     -Priority: int
     -Date: DateTime
-    +Warning(Host host, Service Service, int priority, DateTime date, string description)
+    +Warning(Host host, Service Service, int priority, DateTime date, Description description)
+    +SetDescription(string desc)
+    +SetPriority(int priority)
 }
 
-class CriticalWarning{
-    -CVE: string
+class ReviewedWarning{
     -Fixed: bool?
+    -Notes: string
     -WarningType: string/Discriminator/
-    +Warning(string CVE)
+    +ReviewWarning(Warning warning, bool fixed, string notes)
 }
 
 class DeviceType <<aggregate>>{
@@ -78,7 +82,7 @@ class DeviceType <<aggregate>>{
     +SetOS(string os)
 }
 
-CriticalWarning -up-|> Warning
+ReviewedWarning -up-|> Warning
 CustomService -up-|> Service
 Host *--> Description
 Service *--> Description
