@@ -10,7 +10,14 @@ class Monitor <<aggregate>>{
     + RemoveHost(Host host)
     + CurrentQuantity()
 }
-
+class Message{
+    -Id: int
+    -Host: Host
+    -Service: Service
+    -Description: Description
+    -Date: DateTime
+    +Message(Host host, Service service, Description description)
+}
 class Host <<aggregate>>{
     -Id: int
     -Hostname: string
@@ -50,6 +57,14 @@ class CustomService{
     +CustomService(string command)
 }
 
+class PlugIn{
+    -Id: int
+    -Name: string
+    -URL: string
+    -ServiceType: string/Discriminator/
+    +Plugin(string name, string url)
+}
+
 class Description <<value object>>{
     -Description: string
     -DescriptionLong: string?
@@ -62,7 +77,7 @@ class Warning{
     -Description: Description
     -Priority: int
     -Date: DateTime
-    +Warning(Host host, Service Service, int priority, DateTime date, Description description)
+    +Warning(Host host, Service Service, int priority, Description description)
     +SetDescription(string desc)
     +SetPriority(int priority)
 }
@@ -74,23 +89,18 @@ class ReviewedWarning{
     +ReviewWarning(Warning warning, bool fixed, string notes)
 }
 
-class DeviceType <<aggregate>>{
-    -Id: int
-    -Type: string
-    -OperatingSystem: string?
-    +DeviceType(string type)
-    +SetOS(string os)
-}
+
 
 ReviewedWarning -up-|> Warning
 CustomService -up-|> Service
+PlugIn -up-|> Service
 Host *--> Description
 Service *--> Description
 Warning *--> Description
+Message *--> Description
 Host <--> Service
 Monitor o--> Host
-DeviceType o--> Host
 Service <--> Warning
-
+Service <--> Message
 
 @enduml
