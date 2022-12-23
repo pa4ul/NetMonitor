@@ -31,7 +31,7 @@ class Host <<aggregate>>{
     +SetAlias(string alias)
     +SetIP(string ip)
     +SetHostname(string hostname)
-    +SetDescription(string desc)
+    +SetDescription(Description desc)
 }
 class Service<<aggregate>>{
     -Id: int
