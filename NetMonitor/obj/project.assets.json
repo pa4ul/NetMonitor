@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor/NetMonitor.csproj",
+      "projectUniqueName": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor/NetMonitor.csproj",
       "projectName": "NetMonitor",
-      "projectPath": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor/NetMonitor.csproj",
+      "projectPath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor/NetMonitor.csproj",
       "packagesPath": "/Users/paulherbich/.nuget/packages/",
-      "outputPath": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor/obj/",
+      "outputPath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/paulherbich/.nuget/NuGet/NuGet.Config"
