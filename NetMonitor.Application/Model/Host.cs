@@ -15,7 +15,7 @@ public class Host
     public Host(string hostname, string ipaddress, Description description)
     {
         Hostname = hostname;
-        IPAddress = ipaddress;
+        SetIP(ipaddress);
         Description = description;
     }
 
@@ -40,6 +40,8 @@ public class Host
         Match m = Regex.Match(ip, pattern, RegexOptions.IgnoreCase);
         if (m.Success)
             IPAddress = ip;
+        else
+            throw new ArgumentException("IP-Address either not version 4 or invalid");
     }
 
     public void SetHostname(string hostname)
@@ -50,6 +52,11 @@ public class Host
     public void SetDescription(Description desc)
     {
         Description = desc;
+    }
+
+    public int CurrentServiceQuantity()
+    {
+        return _servicesInUse.Count;
     }
     
 }

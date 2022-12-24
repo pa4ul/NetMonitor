@@ -27,6 +27,7 @@ class Host <<aggregate>>{
     -ServicesInUse: IReadOnlyCollection<Service>
     +Host(string hostname, string ipadress, Description description)
     +AddService(Service service)
+    +CurrentServiceQuantity()
     +RemoveService(Service service)
     +SetAlias(string alias)
     +SetIP(string ip)
@@ -43,7 +44,7 @@ class Service<<aggregate>>{
     +Service(Host host, int ninterval, int rinterval, Description description)
     +SetNormalInterval(int n)
     +SetRetryInterval(int r)
-    +SetDescription(string desc)
+    +SetDescription(Description desc)
     +CreateWarning()
     +ReviewWarning(Warning warning, bool fixed, string notes)
     +CalculateAveragePriority()
