@@ -45,7 +45,7 @@ class Service<<aggregate>>{
     +SetNormalInterval(int n)
     +SetRetryInterval(int r)
     +SetDescription(Description desc)
-    +CreateWarning()
+    +CreateWarning(Host host, Service service, int priority, Description description)
     +ReviewWarning(Warning warning, bool fixed, string notes)
     +CalculateAveragePriority()
     +GetLastWarning()
@@ -78,8 +78,8 @@ class Warning{
     -Description: Description
     -Priority: int
     -Date: DateTime
-    +Warning(Host host, Service Service, int priority, Description description)
-    +SetDescription(string desc)
+    +Warning(Host host, Service service, int priority, Description description)
+    +SetDescription(Description desc)
     +SetPriority(int priority)
 }
 

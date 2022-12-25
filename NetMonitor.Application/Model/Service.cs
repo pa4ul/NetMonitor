@@ -35,25 +35,25 @@ public class Service
         Description = desc;
     }
 
-    public void CreateWarning()
+    public void CreateWarning(Host host, Service service, int priority, Description description)
     {
-        //not finished
+        var w = new Warning(host,service,priority,description);
+        _producedWarnings.Add(w);
     }
 
-    public void ReviewWarning()
+    public void ReviewWarning(Warning w, bool f, string n)
     {
-        //not finished
+        var rw = new ReviewedWarning(w, f, n);
     }
 
-    public int CalculateAveragePriority()
+    public double CalculateAveragePriority()
     {
-        //not finished
-        return 0;
+        return _producedWarnings.Average(warning => warning.Priority);
     }
 
     public Warning GetLastWarning()
     {
-        return null;
-        //not finished
+        //same as _producedWarnings[_producedWarnings.Count - 1];
+        return _producedWarnings[^1];
     }
 }
