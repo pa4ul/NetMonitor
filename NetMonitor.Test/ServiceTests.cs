@@ -84,8 +84,8 @@ public class ServiceTests
         // ACT
         Service1.ReviewWarning(new Warning(Host1,Service1,8,new Description("CVE 123-456")),true,"fixed with update");
         
-
+    
         // ASSERT
-        //no reference to ReviewdWarning !!
+        Assert.Equal("CVE 123-456",Service1.GetLastReviwedWarning().Description.description);
     }
 }

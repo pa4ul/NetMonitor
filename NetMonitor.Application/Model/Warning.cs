@@ -8,6 +8,7 @@ public class Warning
     public Description Description { get; set; }
     public int Priority { get; set; }
     public DateTime Date { get; set; }
+    
 
     public Warning(Host host, Service service, int priority, Description description)
     {

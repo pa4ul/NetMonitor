@@ -41,6 +41,7 @@ class Service<<aggregate>>{
     -RetryInterval: int
     -Description: Description
     -ProducedWarnings: IReadOnlyCollection<Warning>
+    -ReviewedWarnings: IReadOnlyCollection<ReviewedWarning>
     +Service(Host host, int ninterval, int rinterval, Description description)
     +SetNormalInterval(int n)
     +SetRetryInterval(int r)
@@ -49,6 +50,7 @@ class Service<<aggregate>>{
     +ReviewWarning(Warning warning, bool fixed, string notes)
     +CalculateAveragePriority()
     +GetLastWarning()
+    +GetLastReviewedWarning()
 
 }
 
@@ -81,6 +83,7 @@ class Warning{
     +Warning(Host host, Service service, int priority, Description description)
     +SetDescription(Description desc)
     +SetPriority(int priority)
+    
 }
 
 class ReviewedWarning{

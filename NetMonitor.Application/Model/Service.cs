@@ -9,6 +9,9 @@ public class Service
     public Description Description { get; set; }
     protected List<Warning> _producedWarnings = new List<Warning>();
     public virtual IReadOnlyCollection<Warning> ProducedWarnings => _producedWarnings;
+    
+    protected List<ReviewedWarning> _reviewedWarnings = new List<ReviewedWarning>();
+    public virtual IReadOnlyCollection<ReviewedWarning> ReviewedWarnings => _reviewedWarnings;
 
     public Service(Host host, int ninterval, int rinterval, Description description)
     {
@@ -44,6 +47,7 @@ public class Service
     public void ReviewWarning(Warning w, bool f, string n)
     {
         var rw = new ReviewedWarning(w, f, n);
+        _reviewedWarnings.Add(rw);
     }
 
     public double CalculateAveragePriority()
@@ -55,5 +59,10 @@ public class Service
     {
         //same as _producedWarnings[_producedWarnings.Count - 1];
         return _producedWarnings[^1];
+    }
+    
+    public Warning GetLastReviwedWarning()
+    {
+        return _reviewedWarnings[^1];
     }
 }
