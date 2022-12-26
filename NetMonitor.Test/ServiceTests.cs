@@ -104,4 +104,21 @@ public class ServiceTests
         // ASSERT
         Assert.Equal("echo $(cut -d ' ' -f 1 </proc/uptime),$(w -h | wc -l),$(cut -d ' ' -f 1-3 </proc/loadavg)",CustomService.Command);
     }
+
+    [Fact]
+    public void create_plugin()
+    {
+        // ARRANGE
+        var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
+        var Service1 = new Service(Host1, 10, 5, new Description("PingCheck"));
+
+        var PlugIn = new PlugIn(Service1,"AutoLoader", "https://monitor-plugins.com/fetcher/autoloader.bin");
+        
+
+        // ACT
+        
+    
+        // ASSERT
+        Assert.Equal("https://monitor-plugins.com/fetcher/autoloader.bin",PlugIn.URL);
+    }
 }
