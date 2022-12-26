@@ -88,4 +88,20 @@ public class ServiceTests
         // ASSERT
         Assert.Equal("CVE 123-456",Service1.GetLastReviwedWarning().Description.description);
     }
+    [Fact]
+    public void create_custom_service()
+    {
+        // ARRANGE
+        var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
+        var Service1 = new Service(Host1, 10, 5, new Description("PingCheck"));
+
+        var CustomService = new CustomService(Service1,
+            "echo $(cut -d ' ' -f 1 </proc/uptime),$(w -h | wc -l),$(cut -d ' ' -f 1-3 </proc/loadavg)");
+
+        // ACT
+        
+    
+        // ASSERT
+        Assert.Equal("echo $(cut -d ' ' -f 1 </proc/uptime),$(w -h | wc -l),$(cut -d ' ' -f 1-3 </proc/loadavg)",CustomService.Command);
+    }
 }
