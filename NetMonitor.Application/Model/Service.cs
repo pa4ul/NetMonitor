@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace NetMonitor.Model;
 
 public class Service
 {
-    public int Id { get; set; }
-    public Host Host { get; set; }
+    public int Id { get; private set; }
+    public virtual Host Host { get; set; }
     public int NormalInterval { get; set; }
     public int RetryInterval { get; set; }
     public Description Description { get; set; }
@@ -12,7 +14,7 @@ public class Service
     
     protected List<ReviewedWarning> _reviewedWarnings = new List<ReviewedWarning>();
     public virtual IReadOnlyCollection<ReviewedWarning> ReviewedWarnings => _reviewedWarnings;
-
+    public string ServiceType { get; private set; } = default!;
     public Service(Host host, int ninterval, int rinterval, Description description)
     {
         Host = host;
@@ -20,7 +22,9 @@ public class Service
         RetryInterval = rinterval;
         Description = description;
     }
-
+#pragma warning disable CS8618
+    protected Service() { }
+#pragma warning restore CS8618
     public void SetNormalInterval(int n)
     {
         if (n > 0)

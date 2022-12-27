@@ -17,6 +17,9 @@ public class MonitorInstance
         Name = name;
         Guid = Guid.NewGuid();
     }
+#pragma warning disable CS8618
+    protected MonitorInstance() { }
+#pragma warning restore CS8618
 
     public void AddHost(Host host)
     {

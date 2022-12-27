@@ -2,13 +2,14 @@ namespace NetMonitor.Model;
 
 public class Warning
 {
-    public int Id { get; set; }
-    public Host Host { get; set; }
-    public Service Service { get; set; }
+    public int Id { get; private set; }
+    public virtual Host Host { get; set; }
+    public virtual Service Service { get; set; }
     public Description Description { get; set; }
     public int Priority { get; set; }
     public DateTime Date { get; set; }
-    
+    public string WarningType { get; private set; } = default!;
+
 
     public Warning(Host host, Service service, int priority, Description description)
     {
@@ -17,7 +18,9 @@ public class Warning
         Priority = priority;
         Description = description;
     }
-
+#pragma warning disable CS8618
+    protected Warning() { }
+#pragma warning restore CS8618
     public void SetDescription(Description desc)
     {
         Description = desc;
@@ -27,5 +30,5 @@ public class Warning
     {
         Priority = priority;
     }
-
+    
 }
