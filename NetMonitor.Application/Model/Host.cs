@@ -5,7 +5,7 @@ namespace NetMonitor.Model;
 public class Host
 {
     public int Id { get; private set; }
-    public string Hostname { get; set; }
+    public string? Hostname { get; set; }
     public string? Alias { get; set; }
     public string? IPAddress { get; set; }
     public Description Description { get; set; }
@@ -14,7 +14,7 @@ public class Host
 
     public Host(string hostname, string ipaddress, Description description)
     {
-        Hostname = hostname;
+        SetHostname(hostname);
         SetIP(ipaddress);
         Description = description;
     }
@@ -49,7 +49,7 @@ public class Host
 
     public void SetHostname(string hostname)
     {
-        Hostname = hostname;
+        Hostname = hostname.ToLower();
     }
 
     public void SetDescription(Description desc)

@@ -65,7 +65,7 @@ public class Service
         return _producedWarnings[^1];
     }
     
-    public Warning GetLastReviwedWarning()
+    public Warning GetLastReviewedWarning()
     {
         return _reviewedWarnings[^1];
     }

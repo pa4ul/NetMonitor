@@ -1,6 +1,6 @@
 @startuml
 
-class Monitor <<aggregate>>{
+class MonitorInstance <<aggregate>>{
     - Id: int
     - Guid : Guid
     - Name: string

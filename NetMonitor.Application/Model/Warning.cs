@@ -9,14 +9,14 @@ public class Warning
     public int Priority { get; set; }
     public DateTime Date { get; set; }
     public string WarningType { get; private set; } = default!;
-
-
+    
     public Warning(Host host, Service service, int priority, Description description)
     {
         Host = host;
         Service = service;
-        Priority = priority;
+        SetPriority(priority);
         Description = description;
+        Date = DateTime.Now;
     }
 #pragma warning disable CS8618
     protected Warning() { }
@@ -28,7 +28,10 @@ public class Warning
 
     public void SetPriority(int priority)
     {
-        Priority = priority;
+        if (priority>=0 && priority <= 10)
+            Priority = priority;
+        else
+            throw new ArgumentException("Priority not between 0 and 10");
     }
     
 }

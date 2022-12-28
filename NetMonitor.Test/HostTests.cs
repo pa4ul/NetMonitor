@@ -106,7 +106,7 @@ public class HostTests
         Host1.SetHostname("Workstation 1A-B");
 
         // ASSERT
-        Assert.Equal("Workstation 1A-B",Host1.Hostname);
+        Assert.Equal("workstation 1a-b",Host1.Hostname);
     }
     
     [Fact]

@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetMonitor.Model;
 
+[Table("Monitors")]
 public class MonitorInstance
 {
     public int Id { get; private set; }
