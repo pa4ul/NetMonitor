@@ -1,4 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace NetMonitor.Model;
+
+[Table("Message")]
 
 public class Message
 {

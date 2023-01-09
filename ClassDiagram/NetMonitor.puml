@@ -103,7 +103,7 @@ Service *--> Description
 Warning *--> Description
 Message *--> Description
 Host <--> Service
-Monitor o--> Host
+MonitorInstance o--> Host
 Service <--> Warning
 Service <--> Message
 

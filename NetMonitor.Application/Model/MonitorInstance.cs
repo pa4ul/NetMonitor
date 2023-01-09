@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetMonitor.Model;
 
-[Table("Monitors")]
+[Table("Monitor")]
 public class MonitorInstance
 {
     public int Id { get; private set; }

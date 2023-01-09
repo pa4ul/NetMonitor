@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetMonitor.Model;
 
+[Table("Service")]
+
 public class Service
 {
     public int Id { get; private set; }

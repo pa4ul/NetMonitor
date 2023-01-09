@@ -1,6 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace NetMonitor.Model;
+
+[Table("Host")]
 
 public class Host
 {

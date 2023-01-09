@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace NetMonitor.Model;
 
 public class ReviewedWarning : Warning
