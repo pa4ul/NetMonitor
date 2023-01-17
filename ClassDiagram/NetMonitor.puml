@@ -11,6 +11,34 @@ class MonitorInstance{
     + RemoveHost(Host host)
     + CurrentQuantity()
 }
+
+class Host <<aggregate>>{
+    +Id: int
+    +Hostname: string?
+    +Alias: string?
+    +IPAdress: string
+    +Description: Description
+    +ServicesInUse: IReadOnlyCollection<Service>
+    ---
+    +Host(string hostname, string ipadress, Description description)
+    +AddService(Service service)
+    +RemoveService(Service service)
+    +CurrentQuantity()
+}
+class Service<<aggregate>>{
+    +Id: int
+    +Host: Host
+    +NormalInterval: int
+    +RetryInterval: int
+    +Description: Description
+    +Messages: IReadOnlyCollection<Message>
+    ---
+    +Service(Host host, int ninterval, int rinterval, Description description)
+    +AddMessage(Message m)
+    +RemoveMessage(Message m)
+    +LastProducedMessage()
+    +MessagesProduced()
+}
 class Message{
     +Id: int
     +Host: Host
@@ -19,58 +47,19 @@ class Message{
     +Date: DateTime
     ---
     +Message(Host host, Service service, Description description)
+    +RetrieveInformation()
 }
-class Host <<aggregate>>{
-    +Id: int
-    +Hostname: string
-    +Alias: string?
-    +IPAdress: string
-    +Description: Description
-    +ServicesInUse: IReadOnlyCollection<Service>
-    ---
-    +Host(string hostname, string ipadress, Description description)
-    +AddService(Service service)
-    +CurrentServiceQuantity()
-    +RemoveService(Service service)
-    +SetAlias(string alias)
-    +SetIP(string ip)
-    +SetHostname(string hostname)
-    +SetDescription(Description desc)
-}
-class Service<<aggregate>>{
-    +Id: int
-    +Host: Host
-    +NormalInterval: int
-    +RetryInterval: int
-    +Description: Description
-    +Messages: IReadOnlyCollection<Warning>
-    ---
-    +Service(Host host, int ninterval, int rinterval, Description description)
-    +SetNormalInterval(int n)
-    +SetRetryInterval(int r)
-    +SetDescription(Description desc)
-    +CreateWarning(Host host, Service service, int priority, Description description)
-    +ReviewWarning(Warning warning, bool fixed, string notes)
-    +CalculateAveragePriority()
-    +GetLastWarning()
-    +GetLastReviewedWarning()
-
-}
-
 class CustomService{
-    +Command: string
-    +ServiceType: string/Discriminator/
+    +CommandShell: string
     ---
-    +CustomService(string command)
+    +CustomService(Service s, string command)
 }
 
 class PlugIn{
-    +Id: int
     +Name: string
     +URL: string
-    +ServiceType: string/Discriminator/
     ---
-    +Plugin(string name, string url)
+    +Plugin(Service s, string name, string url)
 }
 
 class Description <<value object>>{
@@ -79,46 +68,30 @@ class Description <<value object>>{
 }
 
 class Warning{
-    +Id: int
-    +Host: Host
-    +Service: Service
-    +Description: Description
     +Priority: int
-    +Date: DateTime
-    +WarningState : WarningState
+    +Reviewed: bool
+    +ReviewedDate: DateTime
     ---
     +Warning(Host host, Service service, int priority, Description description)
-    +SetDescription(Description desc)
-    +SetPriority(int priority)
-    
+    +ReviewWarning(bool state, DateTime date)
 }
 
-class WarningState {
-    +Id
-    +Created : DateTime
-}
+MonitorInstance --> Host
 
-class ReviewedWarning{
-    +Fixed: bool?
-    +Notes: string
-    +WarningType: string/Discriminator/
-    ---
-    +ReviewWarning(Warning warning, bool fixed, string notes)
-}
-
-
-
-ReviewedWarning -up-|> WarningState
-CustomService -up-|> Service
-PlugIn -up-|> Service
 Host *--> Description
 Service *--> Description
 Warning *--> Description
-Warning o--> WarningState
 Message *--> Description
-Host <--> Service
-MonitorInstance o--> Host
-Service <--> Message
+
+
+Message <--o Service
+Service <--o Host
+
+Message --> Host
+
 Warning -up-|> Message
+CustomService -up-|> Service
+PlugIn -up-|> Service
+
 
 @enduml

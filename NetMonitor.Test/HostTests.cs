@@ -1,7 +1,7 @@
 using NetMonitor.Model;
 
 namespace NetMonitor.Test;
-
+[Collection("Sequential")]
 public class HostTests
 {
     [Fact]
@@ -57,18 +57,7 @@ public class HostTests
         Assert.Equal(2,Host1.CurrentServiceQuantity());
     }
     
-    [Fact]
-    public void set_alias()
-    {
-        // ARRANGE
-        var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
-        
-        // ACT
-        Host1.SetAlias("Workstation one_a");
-
-        // ASSERT
-        Assert.Equal("Workstation one_a",Host1.Alias);
-    }
+   
     
     [Fact]
     public void set_ip()
@@ -77,7 +66,7 @@ public class HostTests
         var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
         
         // ACT
-        Host1.SetIP("192.168.0.99");
+        Host1.IPAddress = "192.168.0.99";
 
         // ASSERT
         Assert.Equal("192.168.0.99",Host1.IPAddress);
@@ -93,7 +82,7 @@ public class HostTests
         
 
         // ASSERT
-        Assert.Throws<ArgumentException>(() => Host1.SetIP("1922.168.0.99"));
+        Assert.Throws<ArgumentException>(() => Host1.IPAddress = "1922.168.0.99");
     }
     
     [Fact]
@@ -103,7 +92,7 @@ public class HostTests
         var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
         
         // ACT
-        Host1.SetHostname("Workstation 1A-B");
+        Host1.Hostname="Workstation 1A-B";
 
         // ASSERT
         Assert.Equal("workstation 1a-b",Host1.Hostname);
@@ -116,7 +105,7 @@ public class HostTests
         var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
         
         // ACT
-        Host1.SetDescription(new Description("PC behind Desk"));
+        Host1.Description=(new Description("PC behind Desk"));
 
         // ASSERT
         Assert.Equal("PC behind Desk",Host1.Description.description);

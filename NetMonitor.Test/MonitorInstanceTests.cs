@@ -4,6 +4,8 @@ using NetMonitor.Model;
 
 namespace NetMonitor.Test;
 
+[Collection("Sequential")]
+
 public class MonitorInstanceTests
 {
     private NetMonitorContext GetDatabase(bool deleteDb = false)

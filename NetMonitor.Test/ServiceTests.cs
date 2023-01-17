@@ -2,6 +2,7 @@ using NetMonitor.Model;
 
 namespace NetMonitor.Test;
 
+[Collection("Sequential")]
 public class ServiceTests
 {
     [Fact]
