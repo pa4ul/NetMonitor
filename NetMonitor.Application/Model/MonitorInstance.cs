@@ -12,7 +12,7 @@ public class MonitorInstance
     [MaxLength(255)] 
     public string Name { get; set; }
     protected List<Host> _hosts = new List<Host>();
-    public virtual IReadOnlyCollection<Host> Hosts => _hosts;
+    public virtual List<Host> Hosts => _hosts;
 
     public MonitorInstance(string name)
     {
@@ -35,7 +35,7 @@ public class MonitorInstance
 
     public int CurrentQuantity()
     {
-        return _hosts.Count;
+        return Hosts.Count;
     }
 
 
