@@ -35,8 +35,8 @@ class Service<<aggregate>>{
     ---
     +Service(Host host, int ninterval, int rinterval, Description description)
     +AddMessage(Message m)
-    +RemoveMessage(Message m)
     +LastProducedMessage()
+    +ProduceWarning(Host h, Service s, Description d, int p, bool r)
     +MessagesProduced()
 }
 class Message{

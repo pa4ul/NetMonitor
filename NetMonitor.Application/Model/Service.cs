@@ -51,13 +51,19 @@ public class Service
         _messages.Add(m);
     }
 
-    public void RemoveMessage(Message m)
-    {
-        _messages.Remove(m);
-    }
-
     public Message LastProducedMessage()
     {
         return _messages[^1];
+    }
+
+    public List<Message> MessagesProduced()
+    {
+        return _messages;
+    }
+
+    public void ProduceWarning(Host h, Service s, Description d, int p, bool r)
+    {
+        var msg = new Message(h, s, d);
+        _messages.Add(new Warning(msg,p,r));
     }
 }
