@@ -28,7 +28,7 @@
 <br>• Umsetzung von Lazy Loading.
 <br>• Zusätzliche XUnit Testfälle sind implementiert.</p>
 
-![image](https://user-images.githubusercontent.com/50578549/213163341-7a25bbff-f2bc-4097-835a-ea239df7bee9.png)
+![NetMonitor](https://user-images.githubusercontent.com/50578549/213189006-78b66714-9406-415b-a91c-f06461211abf.png)
 
 
 
