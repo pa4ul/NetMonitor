@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
@@ -8,8 +9,9 @@ public class Host
 {
     public int Id { get; private set; }
 
-    private string _hostname ="";
+    private string _hostname = "";
 
+    [MaxLength(255)]
     public string Hostname
     {
         get { return _hostname; }
