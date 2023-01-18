@@ -1,82 +1,43 @@
-using Microsoft.EntityFrameworkCore;
-using NetMonitor.Infrastructure;
 using NetMonitor.Model;
 
 namespace NetMonitor.Test;
 
-[Collection("Sequential")]
-public class MonitorInstanceTests
+public class MonitorInstanceTests : DatabaseTest
 {
-    private NetMonitorContext GetDatabase(bool deleteDb = false)
+    public MonitorInstanceTests()
     {
-        var db = new NetMonitorContext(new DbContextOptionsBuilder()
-            .UseSqlite("Data Source=NetMonitor.db")
-            .UseLazyLoadingProxies()
-            .Options);
-        if (deleteDb)
-        {
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-        }
-        return db; 
+        _db.Database.EnsureCreated();
+        var monitorinstance = new MonitorInstance("data center Donaustadt");
+        _db.MonitorInstances.Add(monitorinstance);
+        var host = new Host("PC inside data center","192.168.10.10",new Description("Medion PC with INTEL Core i7-13700K"));
+        
+        monitorinstance.AddHost(host);
+        _db.SaveChanges();
     }
     
-    /*[Fact]
-    public void create_monitor()
+    [Fact]
+    public void AddHostSuccessTest()
     {
-        // ARRANGE
-        var db = GetDatabase(true);
-        
-        // ACT
-        var Monitor = new MonitorInstance("Instance 1");
-        db.MonitorInstances.Add(Monitor);
-        db.SaveChanges();
-        db.ChangeTracker.Clear();
-        
-        // ASSERT
-        Assert.True(db.MonitorInstances.First().Name == "Instance 1");
-    }*/
+        Assert.True(_db.MonitorInstances.First().CurrentQuantity() == 1);
+    }
     
-    /*[Fact]
-    public void add_hosts()
+    [Fact]
+    public void RemoveHostSuccessTest()
     {
-        // ARRANGE
-        var db = GetDatabase(true);
-        {
-            var Monitor = new MonitorInstance("Instance 1");
-            db.MonitorInstances.Add(Monitor);
-            db.SaveChanges();
-            db.ChangeTracker.Clear();
-        }
-        // ACT
-        var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
-
-        // ACT
+        var monitorinstance = _db.MonitorInstances.First();
+        var host = _db.Hosts.First();
+        monitorinstance.RemoveHost(host);
+        _db.SaveChanges();
         
-        var monitor = db.MonitorInstances.First();
-        monitor.AddHost(Host1);
-        db.SaveChanges();
-        db.ChangeTracker.Clear();
-        // ASSERT
-        Assert.Equal(1, db.MonitorInstances.First().CurrentQuantity());
-    }*/
+        _db.ChangeTracker.Clear();
+        
+        monitorinstance = _db.MonitorInstances.First();
+        Assert.Equal(0, monitorinstance.CurrentQuantity());
+    }
     
-    /*[Fact]
-    public void remove_host()
+    [Fact]
+    public void CurrentQuantitySuccessTest()
     {
-        // ARRANGE
-        var Monitor = new MonitorInstance("Instance 1");
-        var Host1 = new Host("Workstation 1A","192.168.4.10", new Description("PC inside cisco laboratory"));
-        var Host2 = new Host("Workstation 2B","192.168.20.2", new Description("PC at office"));
-        var Host3 = new Host("Workstation 3C","192.168.30.12", new Description("Laptop for product testing"));
-
-        // ACT
-        Monitor.AddHost(Host1);
-        Monitor.AddHost(Host2);
-        Monitor.AddHost(Host3);
-        Monitor.RemoveHost(Host1);
-
-        // ASSERT
-        Assert.Equal(2, Monitor.CurrentQuantity());
-    }*/
+        Assert.Equal(1,_db.MonitorInstances.First().CurrentQuantity());
+    }
 }
