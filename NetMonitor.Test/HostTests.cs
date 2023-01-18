@@ -2,14 +2,17 @@ using NetMonitor.Model;
 
 namespace NetMonitor.Test;
 
+[Collection("Sequential")]
 public class HostTests : DatabaseTest
 {
     public HostTests()
     {
         _db.Database.EnsureCreated();
-        var host = new Host("PC inside data center","192.168.10.10",new Description("Medion PC with INTEL Core i7-13700K"));
+        var host = new Host("PC inside data center", "192.168.10.10",
+            new Description("Medion PC with INTEL Core i7-13700K"));
         _db.Hosts.Add(host);
-        var service = new Service(host,100,20,new Description("Current CPU-temperature","Current CPU-temperature in Celsius"));
+        var service = new Service(host, 100, 20,
+            new Description("Current CPU-temperature", "Current CPU-temperature in Celsius"));
         host.AddService(service);
         _db.SaveChanges();
     }
@@ -19,7 +22,7 @@ public class HostTests : DatabaseTest
     {
         Assert.True(_db.Hosts.ToList().Count == 1);
     }
-    
+
     [Fact]
     public void RemoveServiceSuccessTest()
     {
@@ -34,10 +37,18 @@ public class HostTests : DatabaseTest
         //Assert.Equal(0, host.ServicesInUse.Count);
         Assert.True(host.ServicesInUse.Count == 0);
     }
-    
+
     [Fact]
-    public void CurrentServiceQuantityTest()
+    public void CurrentServiceQuantitySuccessTest()
     {
-        Assert.True(_db.Hosts.First().CurrentServiceQuantity()==1);
+        Assert.True(_db.Hosts.First().CurrentServiceQuantity() == 1);
+    }
+
+    [Fact]
+    public void CurrentSetupSuccessTest()
+    {
+        Assert.Equal(
+            "Hostname: pc inside data center - IPAddress: 192.168.10.10 - Services in use: 1",
+            _db.Hosts.First().CurrentSetup());
     }
 }

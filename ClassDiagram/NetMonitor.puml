@@ -16,7 +16,7 @@ class Host <<aggregate>>{
     +Id: int
     +Hostname: string
     +Alias: string?
-    +IPAdress: string
+    +IPAddress: string
     +Description: Description
     +ServicesInUse: IReadOnlyCollection<Service>
     ---
@@ -24,6 +24,7 @@ class Host <<aggregate>>{
     +AddService(Service service)
     +RemoveService(Service service)
     +CurrentQuantity()
+    +CurrentSetup()
 }
 class Service<<aggregate>>{
     +Id: int

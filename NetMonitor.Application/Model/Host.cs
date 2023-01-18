@@ -66,4 +66,21 @@ public class Host
     {
         return _servicesInUse.Count;
     }
+
+    public String CurrentSetup()
+    {
+        String hostname = "";
+        if (Hostname.Length > 1)
+        {
+            hostname = $"Hostname: {Hostname} -";
+        }
+
+        String alias = "";
+        if (Alias is not null && Alias.Length>1)
+        {
+            alias = $"Alias: {Alias} -";
+        }
+
+        return $"{hostname} {alias}IPAddress: {IPAddress} - Services in use: {CurrentServiceQuantity()}";
+    }
 }

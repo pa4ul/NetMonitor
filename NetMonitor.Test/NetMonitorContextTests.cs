@@ -3,6 +3,7 @@ using NetMonitor.Model;
 
 namespace NetMonitor.Test;
 
+[Collection("Sequential")]
 public class NetMonitorContextTests : DatabaseTest
 {
     [Fact]
@@ -22,7 +23,7 @@ public class NetMonitorContextTests : DatabaseTest
 
         _db.MonitorInstances.Add(monitorInstance1);
         _db.MonitorInstances.Add(monitorInstance2);
-        
+
         var host1 = new Host("PC_01", "192.168.10.10", new Description("PC beim Eingang"));
         var host2 = new Host("PC_02", "192.168.20.5", new Description("PC neben Kantine"));
         var host3 = new Host("PC_03", "192.168.70.10", new Description("Laptop auf dem Serverrack"));
@@ -30,7 +31,7 @@ public class NetMonitorContextTests : DatabaseTest
         monitorInstance1.AddHost(host1);
         monitorInstance1.AddHost(host2);
         monitorInstance2.AddHost(host3);
-        
+
         var service1 = new Service(host1, 100, 20, new Description("CPU-Temperatur check"));
         var service2 = new Service(host1, 50, 5, new Description("Ping check"));
         var service3 = new Service(host2, 200, 100, new Description("Verbindung zum Schulserver check"));
@@ -40,7 +41,7 @@ public class NetMonitorContextTests : DatabaseTest
         var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert"));
         var service8 = new Service(host3, 100, 100, new Description("Registry Snapshot"));
 
-        
+
         host1.AddService(service1);
         host1.AddService(service2);
         host2.AddService(service3);
@@ -50,10 +51,12 @@ public class NetMonitorContextTests : DatabaseTest
 
         var message1 = new Message(host1, service1, new Description("CPU-Temperatur bei 34 Grad Celsius"));
         var message2 = new Message(host1, service2, new Description("Ping erfolgreich um 14:25 UTC+1"));
-        var message3 = new Message(host2, service3, new Description("Verbindung zum Schulserver erfolgreich um 14:30 UTC+1"));
+        var message3 = new Message(host2, service3,
+            new Description("Verbindung zum Schulserver erfolgreich um 14:30 UTC+1"));
         var message4 = new Message(host3, service4, new Description("CPU-Temperatur bei 55 Grad Celsius"));
         var message5 = new Message(host3, service5, new Description("CPU-Auslastung bei 33%"));
-        var message6 = new Message(host3, service6, new Description("Lüftung funktioniert einwandfrei und ist auf Stufe 'Medium'"));
+        var message6 = new Message(host3, service6,
+            new Description("Lüftung funktioniert einwandfrei und ist auf Stufe 'Medium'"));
         var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'"));
 
         service1.AddMessage(message1);
@@ -69,17 +72,17 @@ public class NetMonitorContextTests : DatabaseTest
         var plugIn = new PlugIn(service7, "Uptime Test formatted", "https://plugins.netmonitor.com/pid=1200");
         host3.AddService(plugIn);
 
-        var customService = new CustomService(service8, @"Get-ChildItem -Path HKCU:\SOFTWARE -recurse | Out-File HKCU_Software.reg");
+        var customService = new CustomService(service8,
+            @"Get-ChildItem -Path HKCU:\SOFTWARE -recurse | Out-File HKCU_Software.reg");
         host3.AddService(customService);
-        
+
         _db.SaveChanges();
-        
+
         //ASSERT
         _db.ChangeTracker.Clear();
-        Assert.True(_db.MonitorInstances.ToList().Count>0);
-        Assert.True(_db.Hosts.ToList().Count>0);
-        Assert.True(_db.Services.ToList().Count>0);
-        Assert.True(_db.Messages.ToList().Count>0);
-        
+        Assert.True(_db.MonitorInstances.ToList().Count > 0);
+        Assert.True(_db.Hosts.ToList().Count > 0);
+        Assert.True(_db.Services.ToList().Count > 0);
+        Assert.True(_db.Messages.ToList().Count > 0);
     }
 }

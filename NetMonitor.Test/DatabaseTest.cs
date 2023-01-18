@@ -5,6 +5,7 @@ using NetMonitor.Infrastructure;
 
 namespace NetMonitor.Test;
 
+[Collection("Sequential")]
 public class DatabaseTest : IDisposable
 {
     private readonly SqliteConnection _connection;
