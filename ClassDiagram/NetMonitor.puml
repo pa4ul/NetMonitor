@@ -83,7 +83,6 @@ Service *--> Description
 Warning *--> Description
 Message *--> Description
 
-
 Message <--o Service
 Service <--o Host
 

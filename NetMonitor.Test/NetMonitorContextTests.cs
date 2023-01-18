@@ -37,6 +37,9 @@ public class NetMonitorContextTests : DatabaseTest
         var service4 = new Service(host3, 10, 2, new Description("CPU-Temperatur check"));
         var service5 = new Service(host3, 10, 5, new Description("CPU-Auslastung check"));
         var service6 = new Service(host3, 30, 15, new Description("Lüftung check"));
+        var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert"));
+        var service8 = new Service(host3, 100, 100, new Description("Registry Snapshot"));
+
         
         host1.AddService(service1);
         host1.AddService(service2);
@@ -51,16 +54,25 @@ public class NetMonitorContextTests : DatabaseTest
         var message4 = new Message(host3, service4, new Description("CPU-Temperatur bei 55 Grad Celsius"));
         var message5 = new Message(host3, service5, new Description("CPU-Auslastung bei 33%"));
         var message6 = new Message(host3, service6, new Description("Lüftung funktioniert einwandfrei und ist auf Stufe 'Medium'"));
-    
+        var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'"));
+
         service1.AddMessage(message1);
         service2.AddMessage(message2);
         service3.AddMessage(message3);
         service4.AddMessage(message4);
-        service5.AddMessage(message6);
+        service5.AddMessage(message5);
         service6.AddMessage(message6);
 
-        _db.SaveChanges();
+        var warning1 = new Warning(message7, 5, false);
+        service6.AddMessage(warning1);
 
+        var plugIn = new PlugIn(service7, "Uptime Test formatted", "https://plugins.netmonitor.com/pid=1200");
+        host3.AddService(plugIn);
+
+        var customService = new CustomService(service8, @"Get-ChildItem -Path HKCU:\SOFTWARE -recurse | Out-File HKCU_Software.reg");
+        host3.AddService(customService);
+        
+        _db.SaveChanges();
         
         //ASSERT
         _db.ChangeTracker.Clear();
@@ -68,8 +80,6 @@ public class NetMonitorContextTests : DatabaseTest
         Assert.True(_db.Hosts.ToList().Count>0);
         Assert.True(_db.Services.ToList().Count>0);
         Assert.True(_db.Messages.ToList().Count>0);
-
-
-
+        
     }
 }

@@ -25,7 +25,7 @@ public class NetMonitorContext : DbContext
         modelBuilder.Entity<Warning>().OwnsOne(w => w.Description);
 
         modelBuilder.Entity<Service>().HasDiscriminator(s => s.ServiceType);
-        //modelBuilder.Entity<Message>().HasDiscriminator(m => m.MessageType);
+        modelBuilder.Entity<Message>().HasDiscriminator(m => m.MessageType);
 
         
         modelBuilder.Entity<MonitorInstance>().HasAlternateKey(m => m.Guid);

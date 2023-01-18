@@ -2,8 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetMonitor.Model;
 
-[Table("Warning")]
-
 public class Warning : Message
 {
     private int _priority;

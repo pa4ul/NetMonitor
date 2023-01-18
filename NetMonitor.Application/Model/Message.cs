@@ -11,7 +11,7 @@ public class Message
     public virtual  Service Service { get; set; }
     public Description Description { get; set; }
     public DateTime Date { get; set; }
-    public string? MessageType { get; private set; } = default!;
+    public string MessageType { get; private set; } = default!;
 
 
     public Message(Host host, Service service, Description description)

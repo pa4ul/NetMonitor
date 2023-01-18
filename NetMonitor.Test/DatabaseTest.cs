@@ -15,6 +15,7 @@ public class DatabaseTest : IDisposable
         _connection = new SqliteConnection("DataSource=:memory:");
         _connection.Open();
         var opt = new DbContextOptionsBuilder()
+            //.UseSqlite("Data Source=NetMon.db") 
             .UseSqlite(_connection)  // Keep connection open (only needed with SQLite in memory db)
             .UseLazyLoadingProxies()
             .LogTo(message => Debug.WriteLine(message), Microsoft.Extensions.Logging.LogLevel.Information)
