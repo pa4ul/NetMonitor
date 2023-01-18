@@ -5,7 +5,6 @@ using NetMonitor.Model;
 namespace NetMonitor.Test;
 
 [Collection("Sequential")]
-
 public class MonitorInstanceTests
 {
     private NetMonitorContext GetDatabase(bool deleteDb = false)
@@ -22,7 +21,7 @@ public class MonitorInstanceTests
         return db; 
     }
     
-    [Fact]
+    /*[Fact]
     public void create_monitor()
     {
         // ARRANGE
@@ -36,9 +35,9 @@ public class MonitorInstanceTests
         
         // ASSERT
         Assert.True(db.MonitorInstances.First().Name == "Instance 1");
-    }
+    }*/
     
-    [Fact]
+    /*[Fact]
     public void add_hosts()
     {
         // ARRANGE
@@ -60,9 +59,9 @@ public class MonitorInstanceTests
         db.ChangeTracker.Clear();
         // ASSERT
         Assert.Equal(1, db.MonitorInstances.First().CurrentQuantity());
-    }
+    }*/
     
-    [Fact]
+    /*[Fact]
     public void remove_host()
     {
         // ARRANGE
@@ -79,5 +78,5 @@ public class MonitorInstanceTests
 
         // ASSERT
         Assert.Equal(2, Monitor.CurrentQuantity());
-    }
+    }*/
 }

@@ -11,6 +11,8 @@ public class Message
     public virtual  Service Service { get; set; }
     public Description Description { get; set; }
     public DateTime Date { get; set; }
+    public string MessageType { get; private set; } = default!;
+
 
     public Message(Host host, Service service, Description description)
     {
@@ -22,4 +24,9 @@ public class Message
 #pragma warning disable CS8618
     protected Message() { }
 #pragma warning restore CS8618
+
+    public String retrieveInformation()
+    {
+        return $"Service {Service.Description.description} on {Host.IPAddress} issued a Message: {Description.description}";
+    }
 }

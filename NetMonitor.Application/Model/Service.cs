@@ -8,14 +8,32 @@ public class Service
 {
     public int Id { get; private set; }
     public virtual Host Host { get; set; }
-    public int NormalInterval { get; set; }
-    public int RetryInterval { get; set; }
+
+    private int _normalInterval;
+
+    public int NormalInterval
+    {
+        get => _normalInterval;
+        set
+        {
+            if (value > 0) _normalInterval = value;
+        }
+    }
+
+    private int _retryInterval;
+    public int RetryInterval
+    {
+        get => _retryInterval;
+        set
+        {
+            if (value > 0) _retryInterval = value;
+        } 
+    }
     public Description Description { get; set; }
-    protected List<Warning> _producedWarnings = new List<Warning>();
-    public virtual IReadOnlyCollection<Warning> ProducedWarnings => _producedWarnings;
+    protected List<Message> _messages = new List<Message>();
+    public virtual IReadOnlyCollection<Message> Messages => _messages;
     
-    protected List<ReviewedWarning> _reviewedWarnings = new List<ReviewedWarning>();
-    public virtual IReadOnlyCollection<ReviewedWarning> ReviewedWarnings => _reviewedWarnings;
+    //Discriminator
     public string ServiceType { get; private set; } = default!;
     public Service(Host host, int ninterval, int rinterval, Description description)
     {
@@ -27,48 +45,19 @@ public class Service
 #pragma warning disable CS8618
     protected Service() { }
 #pragma warning restore CS8618
-    public void SetNormalInterval(int n)
+
+    public void AddMessage(Message m)
     {
-        if (n > 0)
-            NormalInterval = n;
+        _messages.Add(m);
     }
 
-    public void SetRetryIntervall(int r)
+    public void RemoveMessage(Message m)
     {
-        if (r > 0)
-            RetryInterval = r;
+        _messages.Remove(m);
     }
 
-    public void SetDescription(Description desc)
+    public Message LastProducedMessage()
     {
-        Description = desc;
-    }
-
-    public void CreateWarning(Host host, Service service, int priority, Description description)
-    {
-        var w = new Warning(host,service,priority,description);
-        _producedWarnings.Add(w);
-    }
-
-    public void ReviewWarning(Warning w, bool f, string n)
-    {
-        var rw = new ReviewedWarning(w, f, n);
-        _reviewedWarnings.Add(rw);
-    }
-
-    public double CalculateAveragePriority()
-    {
-        return _producedWarnings.Average(warning => warning.Priority);
-    }
-
-    public Warning GetLastWarning()
-    {
-        //same as _producedWarnings[_producedWarnings.Count - 1];
-        return _producedWarnings[^1];
-    }
-    
-    public Warning GetLastReviewedWarning()
-    {
-        return _reviewedWarnings[^1];
+        return _messages[^1];
     }
 }

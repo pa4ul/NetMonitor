@@ -4,38 +4,32 @@ namespace NetMonitor.Model;
 
 [Table("Warning")]
 
-public class Warning
+public class Warning : Message
 {
-    public int Id { get; private set; }
-    public virtual Host Host { get; set; }
-    public virtual Service Service { get; set; }
-    public Description Description { get; set; }
-    public int Priority { get; set; }
-    public DateTime Date { get; set; }
-    public string WarningType { get; private set; } = default!;
-    
-    public Warning(Host host, Service service, int priority, Description description)
+    private int _priority;
+    public int Priority
     {
-        Host = host;
-        Service = service;
-        SetPriority(priority);
-        Description = description;
-        Date = DateTime.Now;
+        get => _priority;
+        set
+        {
+            if (value>=0 && value <= 10)
+                _priority = value;
+            else
+                throw new ArgumentException("Priority not between 0 and 10");
+        }
+    }
+    public bool Reviewed { get; set; }
+    public DateTime ReviewedDate { get; set; }
+    
+    public Warning(Message m, int priority, bool reviewed) : base(m.Host, m.Service, m.Description)
+    {
+        Priority = priority;
+        Reviewed = reviewed;
+        ReviewedDate = DateTime.Now;
+
     }
 #pragma warning disable CS8618
     protected Warning() { }
 #pragma warning restore CS8618
-    public void SetDescription(Description desc)
-    {
-        Description = desc;
-    }
-
-    public void SetPriority(int priority)
-    {
-        if (priority>=0 && priority <= 10)
-            Priority = priority;
-        else
-            throw new ArgumentException("Priority not between 0 and 10");
-    }
     
 }

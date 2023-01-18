@@ -12,9 +12,10 @@ public class NetMonitorContext : DbContext
     public DbSet<Host> Hosts => Set<Host>();
     public DbSet<Message> Messages => Set<Message>();
     public DbSet<MonitorInstance> MonitorInstances => Set<MonitorInstance>();
-    public DbSet<ReviewedWarning> ReviewedWarnings => Set<ReviewedWarning>();
     public DbSet<Service> Services => Set<Service>();
     public DbSet<Warning> Warnings => Set<Warning>();
+    public DbSet<PlugIn> PlugIn => Set<PlugIn>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,9 +24,10 @@ public class NetMonitorContext : DbContext
         modelBuilder.Entity<Message>().OwnsOne(m => m.Description);
         modelBuilder.Entity<Warning>().OwnsOne(w => w.Description);
 
-        modelBuilder.Entity<Warning>().HasDiscriminator(r => r.WarningType);
-        modelBuilder.Entity<Service>().HasDiscriminator(c => c.ServiceType);
-    
+        modelBuilder.Entity<Service>().HasDiscriminator(s => s.ServiceType);
+        //modelBuilder.Entity<Message>().HasDiscriminator(m => m.MessageType);
+
+        
         modelBuilder.Entity<MonitorInstance>().HasAlternateKey(m => m.Guid);
 
     }

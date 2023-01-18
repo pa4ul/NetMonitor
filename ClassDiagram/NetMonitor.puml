@@ -50,7 +50,7 @@ class Message{
     +RetrieveInformation()
 }
 class CustomService{
-    +CommandShell: string
+    +Command: string
     ---
     +CustomService(Service s, string command)
 }
@@ -72,7 +72,7 @@ class Warning{
     +Reviewed: bool
     +ReviewedDate: DateTime
     ---
-    +Warning(Host host, Service service, int priority, Description description)
+    +Warning(Message m, int priority, bool reviewed)
     +ReviewWarning(bool state, DateTime date)
 }
 
