@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZeAUz1GBJ1pyuSjXVKFwhDVT+ZYHsQ37vA+vc1kUVCu2NN2dbOIWshWNtPTlD5jg7PyZx8s9Tml8l4R5gjAlUA==",
+  "dgSpecHash": "S83F3WLvuBCX28WB645DnBSUuRhgW61fBnCnZ0bNUOyYjubig6PHce4t+HjueiStRrLJLJj4Q7zdPRtKgmCYnQ==",
   "success": true,
   "projectFilePath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Test/NetMonitor.Test.csproj",
   "expectedPackageFiles": [
+    "/Users/paulherbich/.nuget/packages/bogus/34.0.2/bogus.34.0.2.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/castle.core/5.1.0/castle.core.5.1.0.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/microsoft.codecoverage/17.1.0/microsoft.codecoverage.17.1.0.nupkg.sha512",

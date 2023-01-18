@@ -14,7 +14,7 @@ class MonitorInstance{
 
 class Host <<aggregate>>{
     +Id: int
-    +Hostname: string?
+    +Hostname: string
     +Alias: string?
     +IPAdress: string
     +Description: Description

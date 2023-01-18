@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "W+pK5U7oIqTRCGAKfGg6fvxThD5exmVFdAv3Dil2K9lZeL69Ewn3yZqf4uK/MlhFe2nSa0zfspEtNbEwlLI+og==",
+  "dgSpecHash": "Jf4u1liNo8mAe6OuwuNa1TOrD4uzICf8PdAeR2nlhEXInKLVY53nbJhYnsOjmjOTkVua9E+i5MWA1NNPrlMNXA==",
   "success": true,
   "projectFilePath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/NetMonitor.csproj",
   "expectedPackageFiles": [
+    "/Users/paulherbich/.nuget/packages/bogus/34.0.2/bogus.34.0.2.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/castle.core/5.1.0/castle.core.5.1.0.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/microsoft.data.sqlite.core/7.0.1/microsoft.data.sqlite.core.7.0.1.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/microsoft.entityframeworkcore/7.0.1/microsoft.entityframeworkcore.7.0.1.nupkg.sha512",

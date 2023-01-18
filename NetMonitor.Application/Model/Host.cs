@@ -8,9 +8,9 @@ public class Host
 {
     public int Id { get; private set; }
 
-    private string? _hostname;
+    private string _hostname ="";
 
-    public string? Hostname
+    public string Hostname
     {
         get { return _hostname; }
         set { _hostname = value!.ToLower(); }
