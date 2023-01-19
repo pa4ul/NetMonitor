@@ -19,7 +19,7 @@ public class Warning : Message
     }
 
     public bool Reviewed { get; set; }
-    public DateTime ReviewedDate { get; set; }
+    public DateTime ReviewedDate { get; private set; }
 
     public Warning(Message m, int priority, bool reviewed) : base(m.Host, m.Service, m.Description)
     {

@@ -22,7 +22,13 @@ public class HostTests : DatabaseTest
     {
         Assert.True(_db.Hosts.ToList().Count == 1);
     }
-
+    
+    [Fact]
+    public void CurrentServiceQuantitySuccessTest()
+    {
+        Assert.True(_db.Hosts.First().CurrentServiceQuantity() == 1);
+    }
+    
     [Fact]
     public void RemoveServiceSuccessTest()
     {
@@ -38,11 +44,7 @@ public class HostTests : DatabaseTest
         Assert.True(host.ServicesInUse.Count == 0);
     }
 
-    [Fact]
-    public void CurrentServiceQuantitySuccessTest()
-    {
-        Assert.True(_db.Hosts.First().CurrentServiceQuantity() == 1);
-    }
+    
 
     [Fact]
     public void CurrentSetupSuccessTest()
@@ -50,5 +52,14 @@ public class HostTests : DatabaseTest
         Assert.Equal(
             "Hostname: pc inside data center - IPAddress: 192.168.10.10 - Services in use: 1",
             _db.Hosts.First().CurrentSetup());
+    }
+    
+    //failure tests
+
+    [Fact]
+    public void IPAddressFailureTest()
+    {
+        var host = _db.Hosts.First();
+        Assert.Throws<ArgumentException>(() => host.IPAddress="300.168.10.10");
     }
 }
