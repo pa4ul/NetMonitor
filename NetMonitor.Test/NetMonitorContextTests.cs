@@ -24,21 +24,21 @@ public class NetMonitorContextTests : DatabaseTest
         _db.MonitorInstances.Add(monitorInstance1);
         _db.MonitorInstances.Add(monitorInstance2);
 
-        var host1 = new Host("PC_01", "192.168.10.10", new Description("PC beim Eingang"));
-        var host2 = new Host("PC_02", "192.168.20.5", new Description("PC neben Kantine"));
-        var host3 = new Host("PC_03", "192.168.70.10", new Description("Laptop auf dem Serverrack"));
+        var host1 = new Host("PC_01", "192.168.10.10", new Description("PC beim Eingang","PC beim Eingang neben Feuerlöscher"));
+        var host2 = new Host("PC_02", "192.168.20.5", new Description("PC neben Kantine","PC neben Kantine auf schwarzem Stehtisch"));
+        var host3 = new Host("PC_03", "192.168.70.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
 
         monitorInstance1.AddHost(host1);
         monitorInstance1.AddHost(host2);
         monitorInstance2.AddHost(host3);
 
         var service1 = new Service(host1, 100, 20, new Description("CPU-Temperatur check"));
-        var service2 = new Service(host1, 50, 5, new Description("Ping check"));
+        var service2 = new Service(host1, 50, 5, new Description("Ping check","Ping check an Webserver"));
         var service3 = new Service(host2, 200, 100, new Description("Verbindung zum Schulserver check"));
         var service4 = new Service(host3, 10, 2, new Description("CPU-Temperatur check"));
         var service5 = new Service(host3, 10, 5, new Description("CPU-Auslastung check"));
-        var service6 = new Service(host3, 30, 15, new Description("Lüftung check"));
-        var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert"));
+        var service6 = new Service(host3, 30, 15, new Description("Lüftung check","Lüftungs Auslastung wird überprüft"));
+        var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert","Uptime test mit formatierter Response"));
         var service8 = new Service(host3, 100, 100, new Description("Registry Snapshot"));
 
 
@@ -57,7 +57,7 @@ public class NetMonitorContextTests : DatabaseTest
         var message5 = new Message(host3, service5, new Description("CPU-Auslastung bei 33%"));
         var message6 = new Message(host3, service6,
             new Description("Lüftung funktioniert einwandfrei und ist auf Stufe 'Medium'"));
-        var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'"));
+        var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'","Die Lüftung ist auf maximaler Stufe Ausgelastet"));
 
         service1.AddMessage(message1);
         service2.AddMessage(message2);
