@@ -31,10 +31,8 @@
 
 
 <h2 align="left">Umsetzung</h2>
-![NetMonitor](https://user-images.githubusercontent.com/50578549/213872122-13cb439c-c60f-4627-9f7f-f69af6eb7483.png)
-![UnitTests](https://user-images.githubusercontent.com/50578549/213872130-7030e971-8ebd-4877-a655-6da3c336bff8.png)
-![Bildschirmfoto 2023-01-21 um 15 42 03](https://user-images.githubusercontent.com/50578549/213872135-3b46a8ee-9bc0-4cda-8807-10a93d8aed37.png)
-![Bildschirmfoto 2023-01-21 um 15 46 08](https://user-images.githubusercontent.com/50578549/213872138-7bace954-9f89-464e-90ce-774f9f3e55c3.png)
+
+![NetMonitor](https://user-images.githubusercontent.com/50578549/213872151-e5ccff2b-951e-4de9-931c-5f2e8ef13989.png)
 
 
 
