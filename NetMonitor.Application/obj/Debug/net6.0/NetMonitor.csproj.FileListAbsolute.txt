@@ -10,3 +10,15 @@
 /Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/obj/Debug/net6.0/refint/NetMonitor.dll
 /Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.pdb
 /Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/obj/Debug/net6.0/ref/NetMonitor.dll
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/bin/Debug/net6.0/NetMonitor.deps.json
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/bin/Debug/net6.0/NetMonitor.dll
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/bin/Debug/net6.0/NetMonitor.pdb
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.csproj.AssemblyReference.cache
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.GeneratedMSBuildEditorConfig.editorconfig
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.AssemblyInfoInputs.cache
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.AssemblyInfo.cs
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.csproj.CoreCompileInputs.cache
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.dll
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/refint/NetMonitor.dll
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/NetMonitor.pdb
+/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/Debug/net6.0/ref/NetMonitor.dll
