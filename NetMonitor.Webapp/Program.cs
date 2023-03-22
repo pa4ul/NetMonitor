@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<NetMonitorContext>(opt =>
 {
-    opt.UseSqlite("Data Source=stores.db");
+    opt.UseSqlite("Data Source=NetMonitor.db");
 });
 builder.Services.AddRazorPages();
 
