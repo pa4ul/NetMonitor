@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/NetMonitor.csproj": {}
+    "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/NetMonitor.csproj": {}
   },
   "projects": {
-    "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/NetMonitor.csproj": {
+    "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/NetMonitor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/NetMonitor.csproj",
+        "projectUniqueName": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/NetMonitor.csproj",
         "projectName": "NetMonitor",
-        "projectPath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/NetMonitor.csproj",
+        "projectPath": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/NetMonitor.csproj",
         "packagesPath": "/Users/paulherbich/.nuget/packages/",
-        "outputPath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/obj/",
+        "outputPath": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/paulherbich/.nuget/NuGet/NuGet.Config"
@@ -67,12 +67,22 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.13, 6.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.13, 6.0.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
         }
       }
     }

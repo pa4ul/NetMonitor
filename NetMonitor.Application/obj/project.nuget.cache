@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jf4u1liNo8mAe6OuwuNa1TOrD4uzICf8PdAeR2nlhEXInKLVY53nbJhYnsOjmjOTkVua9E+i5MWA1NNPrlMNXA==",
+  "dgSpecHash": "9rqnO2zu3qQesGQWJXrQ9OWa42+Yz73Ja8yy3yG+Rf2RTJ/BIxrDBX3mgX1Y/N5m0u9QlAtXLmznZ4cU9VB9+w==",
   "success": true,
-  "projectFilePath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Application/NetMonitor.csproj",
+  "projectFilePath": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Application/NetMonitor.csproj",
   "expectedPackageFiles": [
     "/Users/paulherbich/.nuget/packages/bogus/34.0.2/bogus.34.0.2.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/castle.core/5.1.0/castle.core.5.1.0.nupkg.sha512",
@@ -32,7 +32,9 @@
     "/Users/paulherbich/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
-    "/Users/paulherbich/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512"
+    "/Users/paulherbich/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512",
+    "/Users/paulherbich/.nuget/packages/microsoft.netcore.app.ref/6.0.13/microsoft.netcore.app.ref.6.0.13.nupkg.sha512",
+    "/Users/paulherbich/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.13/microsoft.aspnetcore.app.ref.6.0.13.nupkg.sha512"
   ],
   "logs": []
 }
