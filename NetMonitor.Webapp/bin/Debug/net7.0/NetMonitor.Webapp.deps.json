@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "NetMonitor.Webapp/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.1",
           "NetMonitor": "1.0.0"
         },
         "runtime": {
