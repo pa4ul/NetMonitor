@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetMonitor.Webapp", "NetMonitor.Webapp\NetMonitor.Webapp.csproj", "{B2827CCC-5757-44C1-B31B-397D92381AFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetMonitor", "NetMonitor.Application\NetMonitor.csproj", "{13D76C7A-161D-4CBA-9D68-C0798B0ACBE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetMonitor.Test", "NetMonitor.Test\NetMonitor.Test.csproj", "{A5E79FDE-92E2-4A4F-AED9-1EFC084C1296}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2827CCC-5757-44C1-B31B-397D92381AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2827CCC-5757-44C1-B31B-397D92381AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2827CCC-5757-44C1-B31B-397D92381AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2827CCC-5757-44C1-B31B-397D92381AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13D76C7A-161D-4CBA-9D68-C0798B0ACBE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13D76C7A-161D-4CBA-9D68-C0798B0ACBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13D76C7A-161D-4CBA-9D68-C0798B0ACBE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13D76C7A-161D-4CBA-9D68-C0798B0ACBE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5E79FDE-92E2-4A4F-AED9-1EFC084C1296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E79FDE-92E2-4A4F-AED9-1EFC084C1296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E79FDE-92E2-4A4F-AED9-1EFC084C1296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E79FDE-92E2-4A4F-AED9-1EFC084C1296}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

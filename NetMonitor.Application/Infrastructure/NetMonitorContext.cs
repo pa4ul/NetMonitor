@@ -39,17 +39,19 @@ public class NetMonitorContext : DbContext
         var monitorInstance2 = new MonitorInstance("Serverraum Graz");
         MonitorInstances.Add(monitorInstance1);
         MonitorInstances.Add(monitorInstance2);
-
+        SaveChanges();
         
         
         var host1 = new Host("PC_01", "192.168.10.10", new Description("PC beim Eingang","PC beim Eingang neben Feuerlöscher"));
         var host2 = new Host("PC_02", "192.168.20.5", new Description("PC neben Kantine","PC neben Kantine auf schwarzem Stehtisch"));
         var host3 = new Host("PC_03", "192.168.70.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
         Hosts.AddRange(host1,host2,host3);
-        
+        SaveChanges();
+
         monitorInstance1.AddHost(host1);
         monitorInstance1.AddHost(host2);
         monitorInstance2.AddHost(host3);
+        SaveChanges();
 
         var service1 = new Service(host1, 100, 20, new Description("CPU-Temperatur check"));
         var service2 = new Service(host1, 50, 5, new Description("Ping check","Ping check an Webserver"));
@@ -57,9 +59,8 @@ public class NetMonitorContext : DbContext
         var service4 = new Service(host3, 10, 2, new Description("CPU-Temperatur check"));
         var service5 = new Service(host3, 10, 5, new Description("CPU-Auslastung check"));
         var service6 = new Service(host3, 30, 15, new Description("Lüftung check","Lüftungs Auslastung wird überprüft"));
-        var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert","Uptime test mit formatierter Response"));
-        var service8 = new Service(host3, 100, 100, new Description("Registry Snapshot"));
-        Services.AddRange(service1,service2,service3,service4,service5,service6,service7,service8);
+        Services.AddRange(service1,service2,service3,service4,service5,service6);
+        SaveChanges();
 
         host1.AddService(service1);
         host1.AddService(service2);
@@ -67,6 +68,7 @@ public class NetMonitorContext : DbContext
         host3.AddService(service4);
         host3.AddService(service5);
         host3.AddService(service6);
+        SaveChanges();
 
         var message1 = new Message(host1, service1, new Description("CPU-Temperatur bei 34 Grad Celsius"));
         var message2 = new Message(host1, service2, new Description("Ping erfolgreich um 14:25 UTC+1"));
@@ -76,31 +78,35 @@ public class NetMonitorContext : DbContext
         var message5 = new Message(host3, service5, new Description("CPU-Auslastung bei 33%"));
         var message6 = new Message(host3, service6,
             new Description("Lüftung funktioniert einwandfrei und ist auf Stufe 'Medium'"));
-        var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'","Die Lüftung ist auf maximaler Stufe Ausgelastet"));
         
-        Messages.AddRange(message1,message2,message3,message4,message5,message6,message7);
-        
+        Messages.AddRange(message1,message2,message3,message4,message5,message6);
+        SaveChanges();
+
         service1.AddMessage(message1);
         service2.AddMessage(message2);
         service3.AddMessage(message3);
         service4.AddMessage(message4);
         service5.AddMessage(message5);
         service6.AddMessage(message6);
+        SaveChanges();
 
+        var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'", "Die Lüftung ist auf maximaler Stufe Ausgelastet"));
         var warning1 = new Warning(message7, 5, false);
         service6.AddMessage(warning1);
         Warnings.Add(warning1);
-        
-        
+        SaveChanges();
+
+        var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert", "Uptime test mit formatierter Response"));
         var plugIn = new PlugIn(service7, "Uptime Test formatted", "https://plugins.netmonitor.com/pid=1200");
         host3.AddService(plugIn);
         PlugIn.Add(plugIn);
+        SaveChanges();
 
+        var service8 = new Service(host3, 100, 100, new Description("Registry Snapshot"));
         var customService = new CustomService(service8,
             @"Get-ChildItem -Path HKCU:\SOFTWARE -recurse | Out-File HKCU_Software.reg");
         host3.AddService(customService);
         CustomServices.Add(customService);
-
-
+        SaveChanges();
     }
 }

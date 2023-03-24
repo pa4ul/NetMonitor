@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S83F3WLvuBCX28WB645DnBSUuRhgW61fBnCnZ0bNUOyYjubig6PHce4t+HjueiStRrLJLJj4Q7zdPRtKgmCYnQ==",
+  "dgSpecHash": "CAMQzmDzIU1EMoNzZmod1bM8mx+aHATqsttK8+Y+A4kN8H/mkSNQSRAnIFbczI+myw32J8Lv/rDNB2hR2UMvmw==",
   "success": true,
-  "projectFilePath": "/Users/paulherbich/RiderProjects/NetMonitorNew/NetMonitor.Test/NetMonitor.Test.csproj",
+  "projectFilePath": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Test/NetMonitor.Test.csproj",
   "expectedPackageFiles": [
     "/Users/paulherbich/.nuget/packages/bogus/34.0.2/bogus.34.0.2.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/castle.core/5.1.0/castle.core.5.1.0.nupkg.sha512",
@@ -124,7 +124,9 @@
     "/Users/paulherbich/.nuget/packages/xunit.core/2.4.1/xunit.core.2.4.1.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/xunit.extensibility.core/2.4.1/xunit.extensibility.core.2.4.1.nupkg.sha512",
     "/Users/paulherbich/.nuget/packages/xunit.extensibility.execution/2.4.1/xunit.extensibility.execution.2.4.1.nupkg.sha512",
-    "/Users/paulherbich/.nuget/packages/xunit.runner.visualstudio/2.4.3/xunit.runner.visualstudio.2.4.3.nupkg.sha512"
+    "/Users/paulherbich/.nuget/packages/xunit.runner.visualstudio/2.4.3/xunit.runner.visualstudio.2.4.3.nupkg.sha512",
+    "/Users/paulherbich/.nuget/packages/microsoft.netcore.app.ref/6.0.13/microsoft.netcore.app.ref.6.0.13.nupkg.sha512",
+    "/Users/paulherbich/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.13/microsoft.aspnetcore.app.ref.6.0.13.nupkg.sha512"
   ],
   "logs": []
 }
