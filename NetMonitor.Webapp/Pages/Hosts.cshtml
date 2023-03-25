@@ -1,0 +1,29 @@
+@page "{guid}"
+@model NetMonitor.Webapp.Pages.Hosts
+
+
+<h3>Informationen zu Host: @Model.Host.Hostname</h3>
+
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th>Hostname</th>
+        <th>Description</th>
+        <th>IP-Adress</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td> @Model.Host.Hostname</td>
+    <td> @Model.Host.Description.description</td>
+    <td> @Model.Host.IPAddress</td>
+    </tbody>
+</table>
+<h6>Long description</h6>
+<p>@Model.Host.Description.longdescription</p>
+<h3>Services</h3>
+<p>Number of services running on <i>@Model.Host.Hostname</i>: @Model.Host.ServicesInUse.Count</p>
+<hr/>
+@foreach (var s in Model.Host.ServicesInUse)
+{
+    <p>s.</p>
+}

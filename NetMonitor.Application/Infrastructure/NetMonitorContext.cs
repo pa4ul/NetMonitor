@@ -30,6 +30,9 @@ public class NetMonitorContext : DbContext
         
         modelBuilder.Entity<MonitorInstance>().HasAlternateKey(m => m.Guid);
         modelBuilder.Entity<MonitorInstance>().Property(m => m.Guid).ValueGeneratedOnAdd();
+        
+        modelBuilder.Entity<Host>().HasAlternateKey(h => h.Guid);
+        modelBuilder.Entity<Host>().Property(h => h.Guid).ValueGeneratedOnAdd();
 
     }
 

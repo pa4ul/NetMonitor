@@ -17,7 +17,7 @@ public class Host
         get { return _hostname; }
         set { _hostname = value!.ToLower(); }
     }
-
+    public Guid Guid { get; private set; }
     public string? Alias { get; set; }
 
     private string _iPAddress = "0.0.0.0";
@@ -45,6 +45,7 @@ public class Host
         Hostname = hostname;
         IPAddress = ipaddress;
         Description = description;
+        Guid = Guid.NewGuid();
     }
 #pragma warning disable CS8618
     protected Host()

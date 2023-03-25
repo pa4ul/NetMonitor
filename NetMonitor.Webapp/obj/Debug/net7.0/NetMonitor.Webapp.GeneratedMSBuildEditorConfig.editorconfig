@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/Pages/Hosts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9zdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
