@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using Host = NetMonitor.Model.Host;
 
@@ -15,13 +16,18 @@ public class Hosts : PageModel
         _db = db;
     }
 
-    public Host Host { get; private set; } = default!;
+    public HostDto Host { get; private set; } = default!;
 
     public IActionResult OnGet(Guid guid)
     {
         var host = _db.Hosts
-            .Include(h => h.ServicesInUse)
-            .FirstOrDefault(h => h.Guid == guid);
+            .Where(h => h.Guid == guid)
+            .Select(h => new HostDto(h.Guid, h.Hostname, h.Description.description, h.Description.longdescription, h.IPAddress,
+                h.ServicesInUse.Select(s => new ServiceDto(s.Guid, s.Description.description, s.Description.longdescription,
+                    s.NormalInterval, s.RetryInterval, s.ServiceType)).ToList()
+            ))
+            .FirstOrDefault();
+
         if (host is null) return RedirectToPage("/");
         Host = host;
         return Page();

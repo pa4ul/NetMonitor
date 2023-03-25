@@ -3,10 +3,9 @@
 
 <h3>Aktive Monitor Instanzen</h3>
 
-<table class="table table-sm table-striped" >
+<table class="table table-sm table-striped">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Hosts</th>
         <th>Guid</th>
@@ -16,13 +15,15 @@
     @foreach (var m in Model.MonitorInstances)
     {
         <tr>
-            <td>@m.Id</td>
             <td>@m.Name</td>
             <td>
-               @foreach (var h in m.Hosts)
-               {
-                   <a asp-page="/Hosts" asp-route-guid="@h.Guid">@h.Hostname</a>
-               }
+                @foreach (var h in m.Hosts)
+                {
+                    <a asp-page="/Hosts" asp-route-guid="@h.Guid">
+                        <button type="button" class="btn btn-dark">@h.Hostname</button>
+
+                    </a>
+                }
             </td>
             <td>@m.Guid</td>
         </tr>

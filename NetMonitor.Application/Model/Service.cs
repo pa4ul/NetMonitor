@@ -9,6 +9,7 @@ public class Service
     public virtual Host Host { get; set; }
 
     private int _normalInterval;
+    public Guid Guid { get; private set; }
 
     public int NormalInterval
     {
@@ -42,6 +43,7 @@ public class Service
         NormalInterval = ninterval;
         RetryInterval = rinterval;
         Description = description;
+        Guid = new Guid();
     }
 #pragma warning disable CS8618
     protected Service()

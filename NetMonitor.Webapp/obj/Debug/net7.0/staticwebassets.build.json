@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "s5EVq/9h9vEKX6arjPG01oVaEU76Z59ewdn9AYH/64U=",
+  "Hash": "efU9cH6bdv1B2PSiPjt6V/ASsn/epQihYKbwoOX99Wk=",
   "Source": "NetMonitor.Webapp",
   "BasePath": "_content/NetMonitor.Webapp",
   "Mode": "Default",
@@ -865,6 +865,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/lib/bootstrap/LICENSE"
+    },
+    {
+      "Identity": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/wwwroot/lib/fontawesome5/all.min.css",
+      "SourceId": "NetMonitor.Webapp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/wwwroot/",
+      "BasePath": "_content/NetMonitor.Webapp",
+      "RelativePath": "lib/fontawesome5/all.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/fontawesome5/all.min.css"
+    },
+    {
+      "Identity": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/wwwroot/lib/fontawesome5/all.min.js",
+      "SourceId": "NetMonitor.Webapp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/wwwroot/",
+      "BasePath": "_content/NetMonitor.Webapp",
+      "RelativePath": "lib/fontawesome5/all.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/fontawesome5/all.min.js"
     },
     {
       "Identity": "/Users/paulherbich/RiderProjects/NetMonitor/NetMonitor.Webapp/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
