@@ -43,7 +43,7 @@
             <td> @s.NormalInterval seconds</td>
             <td> @s.RetryInterval seconds</td>
             <td> @s.ServiceType</td>
-            <td><a asp-page="/Services" asp-route-guid=""><i class="fa-solid fa-circle-info fa-lg"></i></a></td>
+            <td><a asp-page="/Services" asp-route-guid="@s.Guid"><i class="fa-solid fa-circle-info fa-lg"></i></a></td>
         </tr>
     }
 

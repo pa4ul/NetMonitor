@@ -1,5 +1,30 @@
 @page "{guid}"
 @model NetMonitor.Webapp.Pages.Services
 
-<p> hello world!</p>
+<h3>Informationen zu Service: @Model.Service.Description</h3>
+@if (@Model.Service.LongDescription.Length>1)
+{
+    <h6>Long description</h6>
+    <p>@Model.Service.LongDescription</p>   
+}
+
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th>Service</th>
+                <th>Description</th>
+                <th>Interval</th>
+                <th>Retry Interval</th>
+                <th>Service Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td>@Model.Service.Description</td>
+        <td>@Model.Service.LongDescription</td>
+    <td>@Model.Service.NormalInterval seconds</td>
+    <td>@Model.Service.RetryInterval</td>
+    <td>@Model.Service.ServiceType</td>
+
+    </tbody>
+</table>
 
