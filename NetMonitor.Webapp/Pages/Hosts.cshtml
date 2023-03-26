@@ -3,6 +3,9 @@
 
 
 <h3>Informationen zu Host: @Model.Host.Hostname</h3>
+<button type="button" onclick="EditMode()" class="btn btn-outline-dark editBtn"><i class="fa fa-edit"></i> Edit Host</button>
+<form method="post">
+<button type="submit" hidden onclick="FinishEditMode()" class="btn btn-outline-success finishBtn"><i class="fa-solid fa-check"></i> Finish Editing</button>
 
 <table class="table table-sm">
     <thead>
@@ -10,15 +13,39 @@
         <th>Hostname</th>
         <th>Description</th>
         <th>IP-Adress</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <td> @Model.Host.Hostname</td>
-    <td> @Model.Host.Description</td>
-    <td> @Model.Host.IPAddress</td>
+    
+    <td>
+        <span class="nonEdit"> @Model.Host.Hostname </span>
+        <span class="edit" hidden>
+            <input asp-for="Host.Hostname" />
+        </span>
+    </td>
+
+    <td>
+        <span class="nonEdit"> @Model.Host.Description </span>
+        <span class="edit" hidden>
+            <input asp-for="Host.Description" class="w-75"/>
+        </span>
+    </td>
+    <td>
+        <span class="nonEdit"> @Model.Host.IPAddress </span>
+        <span class="edit" hidden>
+            <input asp-for="Host.IPAddress"  class="w-50"/>
+        </span>
+    </td>
+    
+
+    <td>
+
+    </td>
     </tbody>
 </table>
-<h6>Long description</h6>
+</form>
+<b>Long description</b>
 <p>@Model.Host.Description</p>
 <h3>Services</h3>
 <p>Number of services running on <i>@Model.Host.Hostname</i>: @Model.Host.Services.Count</p>
@@ -43,10 +70,43 @@
             <td> @s.NormalInterval seconds</td>
             <td> @s.RetryInterval seconds</td>
             <td> @s.ServiceType</td>
-            <td><a asp-page="/Services" asp-route-guid="@s.Guid"><i class="fa-solid fa-circle-info fa-lg"></i></a></td>
+            <td>
+                <a asp-page="/Services" asp-route-guid="@s.Guid">
+                    <i class="fa-solid fa-circle-info fa-lg"></i>
+                </a>
+            </td>
         </tr>
     }
 
 
     </tbody>
 </table>
+
+
+@section Scripts
+{
+    <script>
+    function EditMode() {
+        [].forEach.call(document.querySelectorAll('.nonEdit'), function (el) {
+            el.hidden=!el.hidden;
+         });
+        [].forEach.call(document.querySelectorAll('.edit'), function (el) {
+            el.hidden=!el.hidden;
+        });
+        document.querySelector('.editBtn').hidden=true;
+        document.querySelector('.finishBtn').hidden=false;
+
+    }
+    function FinishEditMode(){
+        [].forEach.call(document.querySelectorAll('.nonEdit'), function (el) {
+            el.hidden=!el.hidden;
+         });
+        [].forEach.call(document.querySelectorAll('.edit'), function (el) {
+            el.hidden=!el.hidden;
+        });
+        document.querySelector('.editBtn').hidden=false;
+        document.querySelector('.finishBtn').hidden=true;
+    }
+
+ </script>
+}

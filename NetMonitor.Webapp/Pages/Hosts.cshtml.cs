@@ -16,6 +16,7 @@ public class Hosts : PageModel
         _db = db;
     }
 
+    [BindProperty]
     public HostDto Host { get; private set; } = default!;
 
     public IActionResult OnGet(Guid guid)
@@ -32,4 +33,7 @@ public class Hosts : PageModel
         Host = host;
         return Page();
     }
+
+    
+    
 }
