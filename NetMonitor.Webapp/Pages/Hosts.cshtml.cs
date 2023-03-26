@@ -24,7 +24,7 @@ public class Hosts : PageModel
             .Where(h => h.Guid == guid)
             .Select(h => new HostDto(h.Guid, h.Hostname, h.Description.description, h.Description.longdescription, h.IPAddress,
                 h.ServicesInUse.Select(s => new ServiceDto(s.Guid, s.Description.description, s.Description.longdescription,
-                    s.NormalInterval, s.RetryInterval, s.ServiceType)).ToList()
+                    s.NormalInterval, s.RetryInterval, s.ServiceType, new List<MessageDto>())).ToList()
             ))
             .FirstOrDefault();
 

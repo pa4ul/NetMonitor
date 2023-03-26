@@ -15,13 +15,16 @@ public class Services : PageModel
     }
 
     public ServiceDto Service { get; private set; } = default!;
+    
 
     public IActionResult OnGet(Guid guid)
     {
         var service = _db.Services
             .Where(s => s.Guid == guid)
             .Select(s => new ServiceDto(s.Guid, s.Description.description, s.Description.longdescription,
-                s.NormalInterval, s.RetryInterval, s.ServiceType))
+                s.NormalInterval, s.RetryInterval, s.ServiceType,
+                s.Messages.Select(m => new MessageDto(m.Description.description, m.Description.longdescription, m.Date,m.MessageType))
+                .ToList()))
             .FirstOrDefault();
         if (service is null) return RedirectToPage("/");
         Service = service;

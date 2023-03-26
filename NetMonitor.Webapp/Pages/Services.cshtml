@@ -2,10 +2,10 @@
 @model NetMonitor.Webapp.Pages.Services
 
 <h3>Informationen zu Service: @Model.Service.Description</h3>
-@if (@Model.Service.LongDescription.Length>1)
+@if (@Model.Service.LongDescription.Length > 1)
 {
     <h6>Long description</h6>
-    <p>@Model.Service.LongDescription</p>   
+    <p>@Model.Service.LongDescription</p>
 }
 
 <table class="table table-sm">
@@ -29,3 +29,24 @@
 </table>
 <h5>Messages created by <i>@Model.Service.Description</i></h5>
 
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Long Description</th>
+        <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var m in Model.Service.Messages)
+    {
+        <tr class=" @(m.Type == "Warning" ? "bg-warning" : "")">
+            <td>@m.Date</td>
+            <td>@m.Description</td>
+            <td>@m.LongDescription</td>
+            <td class="@(m.Type == "Warning" ? "text-danger" : "")">@m.Type</td>
+        </tr>
+    }
+    </tbody>
+</table>

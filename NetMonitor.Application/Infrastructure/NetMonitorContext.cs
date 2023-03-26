@@ -84,8 +84,11 @@ public class NetMonitorContext : DbContext
         var message5 = new Message(host3, service5, new Description("CPU-Auslastung bei 33%"));
         var message6 = new Message(host3, service6,
             new Description("Lüftung funktioniert einwandfrei und ist auf Stufe 'Medium'"));
+        var message17 = new Message(host1, service1, new Description("CPU-Temperatur bei 50 Grad Celsius"));
+        var message8 = new Message(host1, service1, new Description("CPU-Lüftung wurde gesteigert"));
+
         
-        Messages.AddRange(message1,message2,message3,message4,message5,message6);
+        Messages.AddRange(message1,message2,message3,message4,message5,message6,message17,message8);
         SaveChanges();
 
         service1.AddMessage(message1);

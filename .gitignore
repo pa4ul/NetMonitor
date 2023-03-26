@@ -4,3 +4,4 @@
 **/*.db*
 **/packages
 **/packages
+**/*.user
