@@ -12,19 +12,20 @@
     <thead>
     <tr>
         <th>Service</th>
-                <th>Description</th>
-                <th>Interval</th>
-                <th>Retry Interval</th>
-                <th>Service Type</th>
+        <th>Description</th>
+        <th>Interval</th>
+        <th>Retry Interval</th>
+        <th>Service Type</th>
     </tr>
     </thead>
     <tbody>
     <td>@Model.Service.Description</td>
-        <td>@Model.Service.LongDescription</td>
+    <td>@Model.Service.LongDescription</td>
     <td>@Model.Service.NormalInterval seconds</td>
     <td>@Model.Service.RetryInterval</td>
     <td>@Model.Service.ServiceType</td>
 
     </tbody>
 </table>
+<h5>Messages created by <i>@Model.Service.Description</i></h5>
 
