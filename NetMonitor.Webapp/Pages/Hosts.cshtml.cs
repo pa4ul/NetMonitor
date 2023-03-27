@@ -61,6 +61,14 @@ public class Hosts : PageModel
         // Redirect after POST
         return RedirectToPage();
     }
+
+    public IActionResult OnPostDelete()
+    {
+        var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
+        _db.Hosts.Remove(host);
+        _db.SaveChanges();
+        return RedirectToPage();
+    }
     
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {

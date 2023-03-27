@@ -1,0 +1,21 @@
+.hostdetails {
+    display: grid;
+    column-gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+}
+
+.label {
+    font-size: 80%;
+    font-weight: bolder;
+}
+
+.longcell {
+    grid-column: span 3;
+}
+
+.validation {
+    color: red;
+    font-size: 80%;
+}
+
+≈

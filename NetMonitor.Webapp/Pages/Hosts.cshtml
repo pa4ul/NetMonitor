@@ -1,50 +1,66 @@
 @page "{guid}"
 @model NetMonitor.Webapp.Pages.Hosts
 
-<h3>Informationen zu Host: @Model.Host.Hostname</h3>
-<button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-dark editBtn">
-    <i class="fa fa-edit"></i> Edit Host
-</button>
-<form method="post" asp-page-handler="edit">
-
-    <button type="submit" onclick="toggleMode()" class="edit btn btn-outline-success finishBtn">
-        <i class="fa-solid fa-check"></i> Finish Editing
-    </button>
-
-    <table class="table table-sm">
-        <thead>
-        <tr>
-            <th>Hostname</th> <th>Description</th> <th>IP-Adress</th> <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>
-            <span class="nonEdit"> @Model.Host.Hostname </span>
-            <span class="edit">
-                <input asp-for="Host.Hostname"/>
-            </span>
-        </td>
-        <td>
-            <span class="nonEdit"> @Model.Host.Description </span>
-            <span class="edit">
-                <input asp-for="Host.Description" class="w-75"/>
-            </span>
-        </td>
-        <td>
-            <span class="nonEdit"> @Model.Host.IPAddress </span>
-            <span class="edit">
-                <input asp-for="Host.IPAddress" class="w-50"/>
-            </span>
-        </td> <td> </td>
-        </tbody>
-    </table>
-    <div asp-validation-summary=All></div> <!-- is used to render a summary of form validation error messages.  -->
-</form>
-@if (Model.Host.LongDescription.Length > 0)
-{
-    <b>Long description</b>
-    <p>@Model.Host.LongDescription</p>
+@section Head {
+    <style> 
+    .detail input {
+     width: 100%; 
+    } 
+    </style>
 }
+
+<h3>Informationen zu Host: @Model.Host.Hostname</h3>
+<form method="post" >
+    <button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-dark editBtn"> <i class="fa fa-edit"></i> Edit Host </button>
+    <button type="submit" asp-page-handler="edit" class="edit btn btn-outline-success finishBtn"> <i class="fa-solid fa-check"></i> Finish Editing </button>
+    <button type="submit" asp-page-handler="delete" class="btn btn-outline-danger edit">Delete <b> @Model.Host.Hostname </b></button>
+
+    <div class="hostdetails">
+        <div class="cell">
+            <div class="label">Hostname</div>
+            <div class="detail nonEdit">@Model.Host.Hostname</div>
+            <div class="detail edit">
+                <input asp-for="Host.Hostname"/>
+            </div>
+            <div class="validation edit">
+                <span asp-validation-for="Host.Hostname"></span>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="label">Description</div>
+            <div class="detail nonEdit">@Model.Host.Description</div>
+            <div class="detail edit">
+                <input asp-for="Host.Description"/>
+            </div>
+            <div class="validation edit">
+                <span asp-validation-for="Host.Description"></span>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="label">IP Address</div>
+            <div class="detail nonEdit">@Model.Host.IPAddress</div>
+            <div class="detail edit">
+                <input asp-for="Host.IPAddress"/>
+            </div>
+            <div class="validation edit">
+                <span asp-validation-for="Host.IPAddress"></span>
+            </div>
+        </div>
+        <div class="cell longcell">
+            <div class="label">Long description</div>
+            <div class="detail nonEdit">@Model.Host.LongDescription</div>
+            <div class="detail edit">
+                <input class="input" asp-for="Host.LongDescription"/>
+            </div>
+            <div class="validation edit">
+                <span asp-validation-for="Host.LongDescription"></span>
+            </div>
+        </div>
+    </div>
+    <div class="cell">
+        <div asp-validation-summary="ModelOnly"></div>
+    </div>
+</form>
 <h3>Services</h3>
 <p>Number of services running on <i>@Model.Host.Hostname</i>: @Model.Host.Services.Count</p>
 <table class="table table-sm">

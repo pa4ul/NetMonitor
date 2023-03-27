@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/NetMonitor.Webapp.styles.css" asp-append-version="true"/>
     <script src="~/lib/fontawesome5/all.min.js"></script>
-
+    @await RenderSectionAsync("Head", required: false)
 </head>
 <body>
 <header>
