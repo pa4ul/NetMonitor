@@ -1,0 +1,76 @@
+@page
+@model NetMonitor.Webapp.Pages.allHosts.index
+
+@section Head {
+    <style> 
+    input { width: 100%; }
+    .td-name{
+        width: 10%;
+    }
+    .td-ip{
+        width: 20%;
+    }
+    .td-desc{
+        width: 25%;
+    }
+    .td-desclong{width: 45%;}
+    </style>
+
+}
+
+<h3>All Hosts</h3>
+<button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-success"> <i class="fa-solid fa-plus"></i> Create New Host </button>
+<form method="post">
+
+    <button type="submit" asp-page-handler="edit" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
+    <button type="button" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>IP-Address</th>
+            <th>Description</th>
+            <th>Long Description</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="edit">
+            <td class="td-name">
+                <input asp-for="Host.Hostname"/>
+            </td>
+            <td class="td-ip">
+                <input asp-for="Host.IPAddress"/>
+            </td>
+            <td class="td-desc">
+                <input asp-for="Host.Description"/>
+            </td>
+            <td class="td-desclong">
+                <input asp-for="Host.LongDescription"/>
+            </td>
+        </tr>
+        @foreach (var h in Model.Hosts)
+        {
+            <tr>
+                <td class="td-name"> @h.Hostname</td>
+                <td class="td-ip"> @h.IPAddress</td>
+                <td class="td-desc"> @h.Description</td>
+                <td class="td-desclong"> @h.LongDescription</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts {
+    <script> 
+    let edit = window.location.href.indexOf("handler=edit") != -1; 
+    function toggleMode() { edit = !edit; setDisplay(); } 
+    function setDisplay() { 
+        for (const el of document.querySelectorAll('.nonEdit')) el.hidden = edit; 
+        for (const el of document.querySelectorAll('.edit')) el.hidden = !edit; 
+    }
+    setDisplay(); 
+    </script>
+}
