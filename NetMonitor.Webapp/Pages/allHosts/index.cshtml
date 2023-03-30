@@ -14,6 +14,7 @@
         width: 25%;
     }
     .td-desclong{width: 45%;}
+    .validation span{color: red;}
     </style>
 
 }
@@ -23,7 +24,7 @@
 <form method="post">
 
     <button type="submit" asp-page-handler="edit" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
-    <button type="button" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
+    <button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
     <table class="table table-sm">
         <thead>
         <tr>
@@ -39,17 +40,31 @@
         <tr class="edit">
             <td class="td-name">
                 <input asp-for="Host.Hostname"/>
+                <div class="validation">
+                    <span asp-validation-for="Host.Hostname"></span>
+                </div>
             </td>
             <td class="td-ip">
                 <input asp-for="Host.IPAddress"/>
+                <div class="validation">
+                    <span asp-validation-for="Host.IPAddress"></span>
+                </div>
+
             </td>
             <td class="td-desc">
                 <input asp-for="Host.Description"/>
+                <div class="validation">
+                    <span asp-validation-for="Host.Description"></span>
+                </div>
             </td>
             <td class="td-desclong">
                 <input asp-for="Host.LongDescription"/>
+                <div class="validation">
+                    <span asp-validation-for="Host.LongDescription"></span>
+                </div>
             </td>
         </tr>
+
         @foreach (var h in Model.Hosts)
         {
             <tr>
@@ -64,6 +79,7 @@
 </form>
 
 @section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
     <script> 
     let edit = window.location.href.indexOf("handler=edit") != -1; 
     function toggleMode() { edit = !edit; setDisplay(); } 

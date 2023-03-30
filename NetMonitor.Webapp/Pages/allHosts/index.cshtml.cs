@@ -27,6 +27,7 @@ public class index : PageModel
 
     public IActionResult OnPostEdit()
     {
+        if (!ModelState.IsValid) return Page();
         Host host = new Host(Host.Hostname, Host.IPAddress, new Description(Host.Description, Host.LongDescription));
         _db.Hosts.Add(host);
         _db.SaveChanges();
