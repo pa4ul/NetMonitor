@@ -14,7 +14,8 @@ public class HostImportService
     {
         public string Hostname { get; set; } = default!;
         public string IPAddress { get; set; } = default!;
-        public Description Description { get; set; } = default!;
+        public string DescriptionShort { get; set; } = default!;
+        public string DescriptionLong { get; set; } = default!;
     }
 
     private class CsvRowMap : ClassMap<CsvRow>
@@ -23,8 +24,8 @@ public class HostImportService
         {
             Map(row => row.Hostname).Index(0); // 1st column is ean number
             Map(row => row.IPAddress).Index(1);
-            Map(row => row.Description.description).Index(2);
-            Map(row => row.Description.longdescription).Index(3);
+            Map(row => row.DescriptionShort).Index(2);
+            Map(row => row.DescriptionLong).Index(3);
         }
     }
 
@@ -58,11 +59,12 @@ public class HostImportService
             return (false, $"Fehler beim Lesen der Zeile {ex.Context.Parser.Row}: {ex.Message}");
         }
     }
-    
+
     private (bool success, string message) WriteToDatabase(IEnumerable<CsvRow> csvRows)
     {
         //var existingIPs = _db.Hosts.Select(h => h.IPAddress).ToHashSet();
-        var newHosts = csvRows.Select(h => new Host(h.Hostname, h.IPAddress, h.Description));
+        var newHosts = csvRows.Select(h => new Host(hostname: h.Hostname, ipaddress: h.IPAddress,
+            description: new Description(h.DescriptionShort, h.DescriptionLong)));
         _db.Hosts.AddRange(newHosts);
         try
         {
