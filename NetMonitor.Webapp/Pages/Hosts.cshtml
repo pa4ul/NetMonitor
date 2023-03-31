@@ -10,7 +10,7 @@
 }
 
 <h3>Informationen zu Host: @Model.Host.Hostname</h3>
-<form method="post" >
+<form method="post">
     <button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-dark editBtn"> <i class="fa fa-edit"></i> Edit Host </button>
     <button type="submit" asp-page-handler="edit" class="edit btn btn-outline-success finishBtn"> <i class="fa-solid fa-check"></i> Finish Editing </button>
     <button type="submit" asp-page-handler="delete" class="btn btn-outline-danger edit">Delete <b> @Model.Host.Hostname </b></button>
@@ -63,6 +63,18 @@
 </form>
 <h3>Services</h3>
 <p>Number of services running on <i>@Model.Host.Hostname</i>: @Model.Host.Services.Count</p>
+<form asp-page-handler="AssignService">
+    <div class="row">
+        <div class="col-4">
+            <select class="form-select" asp-for="ServiceGuid" asp-items="@Model.ServiceSelectedList">
+                <option value="" hidden>Select one service</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-outline-success">Add service</button>
+        </div>
+    </div>
+</form>
 <table class="table table-sm">
     <thead>
     <tr>

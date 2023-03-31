@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using NetMonitor.Infrastructure;
+using NetMonitor.Webapp.wwwroot.Dto;
 
 var opt = new DbContextOptionsBuilder()
     .UseSqlite("Data Source=NetMonitor.db")  // Keep connection open (only needed with SQLite in memory db)
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<NetMonitorContext>(opt =>
 {
     opt.UseSqlite("Data Source=NetMonitor.db");
 });
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages();
 
 // MIDDLEWARE

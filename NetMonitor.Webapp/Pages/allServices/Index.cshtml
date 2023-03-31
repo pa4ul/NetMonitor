@@ -1,0 +1,84 @@
+@page
+@model NetMonitor.Webapp.Pages.allServices.Index
+
+@section Head {
+    <style> 
+    input { width: 100%; }
+    .td-desc{width:30%}
+    .td-inter{width:10%}
+    .td-longDesc{width: 50%}
+   
+    .tr:hover{background-color: lightgrey}
+    .validation span{color: red;}
+    </style>
+
+}
+
+<h3>All Services</h3>
+<button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-success"> <i class="fa-solid fa-plus"></i> Create New Service </button>
+<form method="post" >
+
+<button type="submit" asp-page-handler="add" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
+<button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>NormalInterval</th>
+            <th>RetryInterval</th>
+            <th>LongDescription</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="edit">
+            <td class="td-desc">
+                <input asp-for="Service.Description"/>
+                <div class="validation">
+                    <span asp-validation-for="Service.Description"></span>
+                </div>
+            </td>
+            <td class="td-inter">
+                <input asp-for="Service.NormalInterval"/>
+                <div class="validation">
+                    <span asp-validation-for="Service.NormalInterval"></span>
+                </div>
+            </td>
+            <td class="td-inter">
+                <input asp-for="Service.RetryInterval"/>
+                <div class="validation">
+                    <span asp-validation-for="Service.RetryInterval"></span>
+                </div>
+            </td>
+            <td class="td-longDesc">
+                <input asp-for="Service.LongDescription"/>
+                <div class="validation">
+                    <span asp-validation-for="Service.LongDescription"></span>
+                </div>
+            </td>
+
+        </tr>
+        @foreach (var s in Model.Services)
+        {
+            <tr class="tr">
+                <td class="td-desc">@s.Description</td>
+                <td class="td-inter">@s.NormalInterval</td>
+                <td class="td-inter">@s.RetryInterval</td>
+                <td class="td-longDesc">@s.LongDescription</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+    <script> 
+    let edit = window.location.href.indexOf("handler=edit") != -1; 
+    function toggleMode() { edit = !edit; setDisplay(); } 
+    function setDisplay() { 
+        for (const el of document.querySelectorAll('.nonEdit')) el.hidden = edit; 
+        for (const el of document.querySelectorAll('.edit')) el.hidden = !edit; 
+    }
+    setDisplay(); 
+    </script>
+}

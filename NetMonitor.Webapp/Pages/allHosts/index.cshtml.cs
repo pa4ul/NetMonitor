@@ -8,14 +8,14 @@ using Host = NetMonitor.Model.Host;
 
 namespace NetMonitor.Webapp.Pages.allHosts;
 
-public class index : PageModel
+public class Index : PageModel
 {
     private readonly NetMonitorContext _db;
     public List<HostDto> Hosts = new List<HostDto>();
 
     [BindProperty] public HostDto Host { get; set; } = default!;
 
-    public index(NetMonitorContext db)
+    public Index(NetMonitorContext db)
     {
         _db = db;
     }
@@ -25,10 +25,10 @@ public class index : PageModel
     }
 
 
-    public IActionResult OnPostEdit()
+    public IActionResult OnPostAdd()
     {
         if (!ModelState.IsValid) return Page();
-        Host host = new Host(Host.Hostname, Host.IPAddress, new Description(Host.Description, Host.LongDescription));
+        var host = new Host(Host.Hostname, Host.IPAddress, new Description(Host.Description, Host.LongDescription));
         _db.Hosts.Add(host);
         _db.SaveChanges();
         return RedirectToPage();

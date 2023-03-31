@@ -1,5 +1,5 @@
 @page
-@model NetMonitor.Webapp.Pages.allHosts.index
+@model NetMonitor.Webapp.Pages.allHosts.Index
 
 @section Head {
     <style> 
@@ -13,6 +13,7 @@
     .td-desc{
         width: 25%;
     }
+    .tr:hover{background-color: lightgrey}
     .td-desclong{width: 45%;}
     .validation span{color: red;}
     </style>
@@ -23,58 +24,68 @@
 <button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-success"> <i class="fa-solid fa-plus"></i> Create New Host </button>
 <form method="post">
 
-    <button type="submit" asp-page-handler="edit" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
-    <button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
-    <table class="table table-sm">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>IP-Address</th>
-            <th>Description</th>
-            <th>Long Description</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
+<button type="submit" asp-page-handler="add" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
+<button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
+<table class="table table-sm">
+<thead>
+<tr>
+    <th>Name</th>
+    <th>IP-Address</th>
+    <th>Description</th>
+    <th>Long Description</th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
 
-        <tr class="edit">
-            <td class="td-name">
-                <input asp-for="Host.Hostname"/>
-                <div class="validation">
-                    <span asp-validation-for="Host.Hostname"></span>
-                </div>
-            </td>
-            <td class="td-ip">
-                <input asp-for="Host.IPAddress"/>
-                <div class="validation">
-                    <span asp-validation-for="Host.IPAddress"></span>
-                </div>
+<tr class="edit">
+    <td class="td-name">
+        <input asp-for="Host.Hostname"/>
+        <div class="validation">
+            <span asp-validation-for="Host.Hostname"></span>
+        </div>
+    </td>
+    <td class="td-ip">
+        <input asp-for="Host.IPAddress"/>
+        <div class="validation">
+            <span asp-validation-for="Host.IPAddress"></span>
+        </div>
 
-            </td>
-            <td class="td-desc">
-                <input asp-for="Host.Description"/>
-                <div class="validation">
-                    <span asp-validation-for="Host.Description"></span>
-                </div>
-            </td>
-            <td class="td-desclong">
-                <input asp-for="Host.LongDescription"/>
-                <div class="validation">
-                    <span asp-validation-for="Host.LongDescription"></span>
-                </div>
-            </td>
-        </tr>
+    </td>
+    <td class="td-desc">
+        <input asp-for="Host.Description"/>
+        <div class="validation">
+            <span asp-validation-for="Host.Description"></span>
+        </div>
+    </td>
+    <td class="td-desclong">
+        <input asp-for="Host.LongDescription"/>
+        <div class="validation">
+            <span asp-validation-for="Host.LongDescription"></span>
+        </div>
+    </td>
 
-        @foreach (var h in Model.Hosts)
-        {
-            <tr>
-                <td class="td-name"> @h.Hostname</td>
-                <td class="td-ip"> @h.IPAddress</td>
-                <td class="td-desc"> @h.Description</td>
-                <td class="td-desclong"> @h.LongDescription</td>
-            </tr>
-        }
-        </tbody>
+</tr>
+
+@foreach (var h in Model.Hosts)
+            {
+    
+
+<tr class="tr">
+    <td class="td-name"> @h.Hostname</td>
+    <td class="td-ip"> @h.IPAddress</td>
+    <td class="td-desc"> @h.Description</td>
+    <td class="td-desclong"> @h.LongDescription</td>
+    <td>
+        <a asp-page="/Hosts" asp-route-guid="@h.Guid">
+
+        <i class="fa-solid fa-circle-info"></i>
+        </a>
+    </td>
+</tr>
+
+}
+</tbody>
     </table>
 </form>
 

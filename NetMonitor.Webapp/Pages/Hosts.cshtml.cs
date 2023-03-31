@@ -6,6 +6,8 @@ using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NetMonitor.Model;
 using Host = NetMonitor.Model.Host;
 
 namespace NetMonitor.Webapp.Pages;
@@ -26,6 +28,12 @@ public class Hosts : PageModel
     // We use the DTO for the direction Model --> Page
     public HostDto Host { get; private set; } = default!;
 
+    public IEnumerable<SelectListItem> ServiceSelectedList => _db.Services
+        .OrderBy(s => s.Description.description)
+        .Select(s => new SelectListItem(s.Description.description, s.Guid.ToString()));
+
+    [BindProperty] public Guid ServiceGuid { get; set; }
+
     public IActionResult OnGet()
     {
         return Page();
@@ -36,10 +44,11 @@ public class Hosts : PageModel
     /// /// </summary>
     public record AddHostCmd(
         [StringLength(255, MinimumLength = 1)] string Hostname,
-        [RegularExpression(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")] string IpAddress,
+        [RegularExpression(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")]
+        string IpAddress,
         [StringLength(255, MinimumLength = 1)] string Description,
         [MaxLength(255)] string? Longdescription = ""
-        );
+    );
 
     /// <summary> /// Modelbinding read the values from the form for Host.
     /// /// Important: Use the same Prpoerties as in HostCmd!
@@ -69,7 +78,20 @@ public class Hosts : PageModel
         _db.SaveChanges();
         return RedirectToPage();
     }
-    
+
+    public IActionResult OnPostAssignService()
+    {
+        //service ist null
+        var service = _db.Services.FirstOrDefault(s => s.Guid == ServiceGuid);
+        if (service is null) return RedirectToPage();
+        var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
+        if (host is null) return RedirectToPage();
+        host.AddService(service);
+        _db.SaveChanges();
+        
+        return RedirectToPage();
+    }
+
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {
         // Hint: Define a ServiceDto without a messagelist and a ServiceDetailDto with a messagelist.

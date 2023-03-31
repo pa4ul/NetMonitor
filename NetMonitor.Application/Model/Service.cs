@@ -6,7 +6,7 @@ namespace NetMonitor.Model;
 public class Service
 {
     public int Id { get; private set; }
-    public virtual Host Host { get; set; }
+    public virtual Host? Host { get; set; }
 
     private int _normalInterval;
     public Guid Guid { get; private set; }
@@ -37,7 +37,7 @@ public class Service
 
     //Discriminator
     public string ServiceType { get; private set; } = default!;
-    public Service(Host host, int ninterval, int rinterval, Description description)
+    public Service(Host? host, int ninterval, int rinterval, Description description)
     {
         Host = host;
         NormalInterval = ninterval;
