@@ -18,6 +18,7 @@
     <ItemGroup>
         <_ContentIncludedByDefault Remove="Pages\Edit\EditHosts.cshtml" />
         <_ContentIncludedByDefault Remove="Pages\Hosts\index.cshtml" />
+        <_ContentIncludedByDefault Remove="Pages\Import\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

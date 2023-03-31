@@ -1,0 +1,2 @@
+Hostname	IPAddress	DescriptionShort	DescriptionLong
+PaulsLaptop	127.0.0.10	Pauls MacBook	Pauls grauer MacBookPro

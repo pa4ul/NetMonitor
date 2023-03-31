@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using NetMonitor.Infrastructure;
+using NetMonitor.Services;
 using NetMonitor.Webapp.wwwroot.Dto;
 
 var opt = new DbContextOptionsBuilder()
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<NetMonitorContext>(opt =>
 {
     opt.UseSqlite("Data Source=NetMonitor.db");
 });
+builder.Services.AddTransient<HostImportService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages();
 
