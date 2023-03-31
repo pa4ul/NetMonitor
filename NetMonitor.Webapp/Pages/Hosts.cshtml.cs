@@ -81,7 +81,6 @@ public class Hosts : PageModel
 
     public IActionResult OnPostAssignService()
     {
-        //service ist null
         var service = _db.Services.FirstOrDefault(s => s.Guid == ServiceGuid);
         if (service is null) return RedirectToPage();
         var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
@@ -90,6 +89,16 @@ public class Hosts : PageModel
         _db.SaveChanges();
         
         return RedirectToPage();
+    }
+
+    public IActionResult OnPostRemoveService(Guid guid)
+    {
+        var service = _db.Services.FirstOrDefault(s => s.Guid == guid);
+        var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
+        host.RemoveService(service);
+        _db.SaveChanges();
+        return RedirectToPage();
+        
     }
 
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)

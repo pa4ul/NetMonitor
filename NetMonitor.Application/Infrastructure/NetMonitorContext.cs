@@ -43,20 +43,36 @@ public class NetMonitorContext : DbContext
     {
         var monitorInstance1 = new MonitorInstance("Kühlraum Wien");
         var monitorInstance2 = new MonitorInstance("Serverraum Graz");
+        var monitorInstance3 = new MonitorInstance("Serverraum Klagenfurt");
+        var monitorInstance4 = new MonitorInstance("Mainframe Wien");
+        var monitorInstance5 = new MonitorInstance("Lagerhalle Tirol");
+
         MonitorInstances.Add(monitorInstance1);
         MonitorInstances.Add(monitorInstance2);
+        MonitorInstances.Add(monitorInstance3);
+        MonitorInstances.Add(monitorInstance4);
+        MonitorInstances.Add(monitorInstance5);
         SaveChanges();
         
         
         var host1 = new Host("PC_01", "192.168.10.10", new Description("PC beim Eingang","PC beim Eingang neben Feuerlöscher"));
         var host2 = new Host("PC_02", "192.168.20.5", new Description("PC neben Kantine","PC neben Kantine auf schwarzem Stehtisch"));
-        var host3 = new Host("PC_03", "192.168.70.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
-        Hosts.AddRange(host1,host2,host3);
+        var host3 = new Host("PC_03", "192.55.2.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
+        var host4 = new Host("MobilePhone_01", "192.168.1.22", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
+        var host5 = new Host("Heat-Sensor_01", "172.11.70.214", new Description("Heat Sensor","Heat Sensor, Cisco 200102, Version-number: CA2000"));
+        var host6 = new Host("IPad_1", "172.168.26.10", new Description("Ipad auf dem Tisch","IPad Pro 2022 links auf dem Schreibtisch"));
+        var host7 = new Host("Laptop_1", "172.168.21.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
+
+        Hosts.AddRange(host1,host2,host3,host4,host5,host6,host7);
         SaveChanges();
 
         monitorInstance1.AddHost(host1);
         monitorInstance1.AddHost(host2);
         monitorInstance2.AddHost(host3);
+        monitorInstance3.AddHost(host4);
+        monitorInstance3.AddHost(host5);
+        monitorInstance4.AddHost(host6);
+        monitorInstance5.AddHost(host7);
         SaveChanges();
 
         var service1 = new Service(host1, 100, 20, new Description("CPU-Temperatur check"));

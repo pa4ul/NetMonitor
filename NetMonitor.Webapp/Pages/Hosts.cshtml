@@ -75,7 +75,7 @@
         </div>
     </div>
 </form>
-<table class="table table-sm">
+<table class="table table-sm align-middle">
     <thead>
     <tr>
         <th>Service</th>
@@ -83,7 +83,8 @@
         <th>Interval</th>
         <th>Retry Interval</th>
         <th>Service Type</th>
-        <th></th>
+        <th>Information</th>
+        <th>Remove</th>
     </tr>
     </thead>
     <tbody>
@@ -95,10 +96,17 @@
             <td> @s.NormalInterval seconds</td>
             <td> @s.RetryInterval seconds</td>
             <td> @s.ServiceType</td>
-            <td>
+            <td class="text-center">
                 <a asp-page="/Services" asp-route-guid="@s.Guid">
-                    <i class="fa-solid fa-circle-info fa-lg"></i>
+                    
+                    <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-circle-info fa-lg"></i></button>
                 </a>
+            </td>
+            <td class="text-center">
+                <form method="post" asp-page-handler="RemoveService">
+                    <input type="hidden" name="guid" value="@s.Guid"/>
+                    <button type="submit" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                </form>
             </td>
         </tr>
     }
