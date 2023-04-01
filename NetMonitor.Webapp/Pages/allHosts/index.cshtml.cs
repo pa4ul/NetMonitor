@@ -60,9 +60,32 @@ public class Index : PageModel
             ErrorMessage = message;
             return RedirectToPage();
         }
-        
+
         using var stream = UploadedFile!.OpenReadStream();
         (success, message) = _importService.LoadCsv(stream);
+        if (!success)
+        {
+            ErrorMessage = message;
+        }
+        else
+        {
+            Message = message;
+        }
+
+        return RedirectToPage();
+    }
+
+    public IActionResult OnPostExcelImport()
+    {
+        var (success, message) = CheckUploadedFile(_allowedExcelExtensions);
+        if (!success)
+        {
+            ErrorMessage = message;
+            return RedirectToPage();
+        }
+
+        using var stream = UploadedFile!.OpenReadStream();
+        (success, message) = _importService.LoadExcel(stream);
         if (!success)
         {
             ErrorMessage = message;

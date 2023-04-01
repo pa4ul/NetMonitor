@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
+using ExcelDataReader;
 using Microsoft.EntityFrameworkCore;
 using NetMonitor.Infrastructure;
 using NetMonitor.Model;
@@ -60,6 +61,33 @@ public class HostImportService
             return (false, $"Fehler beim Lesen der Zeile {ex.Context.Parser.Row}: {ex.Message}");
         }
     }
+    
+    public (bool success, string message) LoadExcel(Stream stream, int maxRows = 1000)
+    {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        using var reader = ExcelReaderFactory.CreateReader(stream);
+        reader.Read();  // Ignore header
+        var csvRows = new List<CsvRow>(1024);
+        int rowNumber = 0;
+        while (reader.Read() && rowNumber++ < maxRows)
+        {
+            if (reader.FieldCount < 4) { break; }
+            if (reader.IsDBNull(0)) { break; }
+            try
+            {
+                csvRows.Add(new CsvRow
+                {
+                    Hostname = reader.IsDBNull(0) ? throw new ApplicationException("Invalid Hostname") : reader.GetString(0),
+                    IPAddress = reader.IsDBNull(1) ? throw new ApplicationException("Invalid IP") : reader.GetString(1),
+                    DescriptionShort = reader.IsDBNull(2) ? throw new ApplicationException("Invalid Description Short") : reader.GetString(2),
+                    DescriptionLong = reader.GetString(3),
+                });
+            }
+            catch { }  // Ignore invalid rows
+        }
+        return WriteToDatabase(csvRows);
+    }
+
 
     private (bool success, string message) WriteToDatabase(IEnumerable<CsvRow> csvRows)
     {
