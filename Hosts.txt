@@ -1,2 +1,13 @@
-Hostname	IPAddress	DescriptionShort	DescriptionLong
-PaulsLaptop	127.0.0.10	Pauls MacBook	Pauls grauer MacBookPro
+Hostname,IPAddress,DescriptionShort,DescriptionLong
+PaulsLaptop,127.0.0.10,Pauls MacBook,Pauls grauer MacBookPro
+Max iPhone,210.20.30.4,iPhone 14 Pro,iPhone 14 Pro 256 Gigabyte in Spacegray
+LisaLaptop,192.168.0.20,Lisas Asus Zenbook,Lisas silbernes Ultrabook
+TimsComputer,10.0.0.3,Tims Dell XPS,Tims schwarzer Desktop-PC
+MariasMac,172.16.0.5,Marias iMac,Marias weißer Apple-Desktop-Computer
+PetersTablet,192.168.1.2,Peters Samsung Galaxy Tab,Peters kleines schwarzes Tablet
+SarahsNotebook,10.1.1.5,Sarahs Lenovo ThinkPad,Sarahs rotes Business-Notebook
+JansChromebook,192.168.2.10,Jans HP Chromebook,Jans silbernes Cloud-Notebook
+LeasSmartphone,172.20.0.12,Leas iPhone X,Leas schwarzes Smartphone
+MichaelsSurface,10.0.2.4,Michaels Microsoft Surface Pro,Michaels graues Convertible-Tablet
+KimsGamingPC,192.168.3.15,Kims ASUS ROG,Kims leistungsstarker Spiele-Desktop
+DavidsServer,172.30.0.7,Davids Raspberry Pi,Davids kleiner selbstgebauter Server

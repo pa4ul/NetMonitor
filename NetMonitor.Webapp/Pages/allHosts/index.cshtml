@@ -16,7 +16,7 @@
     .tr:hover{background-color: lightgrey}
     .td-desclong{width: 45%;}
     .validation span{color: red;}
-    </style> 
+    </style>
 
 }
 
@@ -33,25 +33,61 @@
         <p class="mb-0">@Model.Message</p>
     </div>
 }
-
-<div class="card mb-4 mt-4">
-    <div class="card-body">
-        <h5 class="card-title">CSV laden</h5>
-        <p class="card-text">
-            Lade eine CSV Datei mit folgender Überschriftszeile hoch:
-            EAN&rarr;Produkt&rarr;Kategorie&rarr;UVP&rarr;LieferbarAb<br />
-            Encoding: UTF 8 (ohne BOM), Trennzeichen: TAB, Zeilenumbrüche: CR+LF
-        </p>
-        <form method="post" enctype="multipart/form-data" asp-page-handler="CsvImport">
-            <input class="form-control" type="file" asp-for="UploadedFile">
-            <button type="submit" class="mt-3 btn btn-primary">Upload</button>
-        </form>
+<div class="accordion accordion mb-4" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Import from Excelsheet
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div class="card ">
+                    <div class="card-body">
+                        <h5 class="card-title">Excelsheet laden</h5>
+                        <p class="card-text">
+                            Lade eine Exceldatei mit folgender Überschriftszeile hoch:
+                            EAN&rarr;Produkt&rarr;Kategorie&rarr;UVP&rarr;LieferbarAb
+                        </p>
+                        <form method="post" enctype="multipart/form-data" asp-page-handler="ExcelImport">
+                            <input class="form-control" type="file" asp-for="UploadedFile">
+                            <button type="submit" class="mt-3 btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Import from CSV
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div class="card mt-4 mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">CSV laden</h5>
+                        <p class="card-text">
+                            Lade eine CSV Datei mit folgender Überschriftszeile hoch:
+                            Hostname&rarr;IPAddress&rarr;DescriptionShort&rarr;DescriptionLong<br/>
+                            Encoding: UTF 8 (ohne BOM), Trennzeichen: Beistrich, Zeilenumbrüche: CR+LF
+                        </p>
+                        <form method="post" enctype="multipart/form-data" asp-page-handler="CsvImport">
+                            <input class="form-control" type="file" asp-for="UploadedFile">
+                            <button type="submit" class="mt-3 btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 
 <button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-success"> <i class="fa-solid fa-plus"></i> Create New Host </button>
-<form method="post"> 
+<form method="post">
 
     <button type="submit" asp-page-handler="add" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
     <button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
@@ -128,7 +164,6 @@
 </form>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial"/>
     <script> 
     let edit = window.location.href.indexOf("handler=edit") != -1; 
     function toggleMode() { edit = !edit; setDisplay(); } 

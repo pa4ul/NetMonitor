@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
 using CsvHelper;
@@ -13,9 +14,9 @@ public class HostImportService
     private class CsvRow
     {
         public string Hostname { get; set; } = default!;
-        public string IPAddress { get; set; } = default!;
+        [RegularExpression(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")] public string IPAddress { get; set; } = default!;
         public string DescriptionShort { get; set; } = default!;
-        public string DescriptionLong { get; set; } = default!;
+        public string? DescriptionLong { get; set; } = default!;
     }
 
     private class CsvRowMap : ClassMap<CsvRow>
@@ -25,7 +26,7 @@ public class HostImportService
             Map(row => row.Hostname).Index(0); // 1st column is ean number
             Map(row => row.IPAddress).Index(1);
             Map(row => row.DescriptionShort).Index(2);
-            Map(row => row.DescriptionLong).Index(3);
+            Map(row => row.DescriptionLong).Index(3).Optional();
         }
     }
 
@@ -42,7 +43,7 @@ public class HostImportService
         var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
-            Delimiter = "\t",
+            Delimiter = ",",
             NewLine = "\r\n",
             ReadingExceptionOccurred = (context) => false // true: rethrow exception, false: ignore
         };
