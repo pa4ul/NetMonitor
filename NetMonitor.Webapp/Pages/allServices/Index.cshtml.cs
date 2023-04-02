@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,7 +9,7 @@ using NetMonitor.Model;
 using Host = Microsoft.Extensions.Hosting.Host;
 
 namespace NetMonitor.Webapp.Pages.allServices;
-
+[Authorize(Roles = "Admin")]
 public class Index : PageModel
 {
     private readonly NetMonitorContext _db;

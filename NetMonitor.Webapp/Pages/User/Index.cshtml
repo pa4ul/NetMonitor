@@ -1,0 +1,32 @@
+@page
+@model NetMonitor.Webapp.Pages.User.Index
+
+<h3>Usertabelle</h3>
+
+<p>
+    Diese Tabelle zeigt alle angelegten User. Sie dient nur der Veranschaulichung und wird
+    in echten Programmen natürlich nie veröffentlicht.
+</p>
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Type</th>
+        <th>Salt</th>
+        <th>Password Hash</th>
+        <th>Monitor Instances</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model.Users)
+    {
+        <tr>
+            <td>@u.Username</td>
+            <td>@u.Usertype</td>
+            <td><pre>@u.Salt</pre></td>
+            <td><pre>@u.PasswordHash</pre></td>
+            <td>@string.Join(", ", u.MonitorInstances.Count)</td>
+        </tr>
+    }
+    </tbody>
+</table>

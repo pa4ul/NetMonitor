@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,7 @@ using Host = NetMonitor.Model.Host;
 
 namespace NetMonitor.Webapp.Pages.allHosts;
 
+[Authorize(Roles = "Admin")]
 public class Index : PageModel
 {
     private readonly NetMonitorContext _db;

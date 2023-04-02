@@ -5,11 +5,15 @@ namespace NetMonitor.Infrastructure;
 
 public class NetMonitorContext : DbContext
 {
-    public NetMonitorContext(DbContextOptions opt) : base(opt) { }
+    public NetMonitorContext(DbContextOptions opt) : base(opt)
+    {
+    }
 
     public DbSet<CustomService> CustomServices => Set<CustomService>();
     public DbSet<Description> Descriptions => Set<Description>();
     public DbSet<Host> Hosts => Set<Host>();
+    public DbSet<User> Users => Set<User>();
+
     public DbSet<Message> Messages => Set<Message>();
     public DbSet<MonitorInstance> MonitorInstances => Set<MonitorInstance>();
     public DbSet<Service> Services => Set<Service>();
@@ -27,25 +31,55 @@ public class NetMonitorContext : DbContext
         modelBuilder.Entity<Service>().HasDiscriminator(s => s.ServiceType);
         modelBuilder.Entity<Message>().HasDiscriminator(m => m.MessageType);
 
-        
+
         modelBuilder.Entity<MonitorInstance>().HasAlternateKey(m => m.Guid);
         modelBuilder.Entity<MonitorInstance>().Property(m => m.Guid).ValueGeneratedOnAdd();
-        
+
         modelBuilder.Entity<Host>().HasAlternateKey(h => h.Guid);
         modelBuilder.Entity<Host>().Property(h => h.Guid).ValueGeneratedOnAdd();
-        
+
         modelBuilder.Entity<Service>().HasAlternateKey(s => s.Guid);
         modelBuilder.Entity<Service>().Property(s => s.Guid).ValueGeneratedOnAdd();
-
     }
 
-    public void Seed()
+    public void Seed(ICryptService cryptService)
     {
-        var monitorInstance1 = new MonitorInstance("Kühlraum Wien");
-        var monitorInstance2 = new MonitorInstance("Serverraum Graz");
-        var monitorInstance3 = new MonitorInstance("Serverraum Klagenfurt");
-        var monitorInstance4 = new MonitorInstance("Mainframe Wien");
-        var monitorInstance5 = new MonitorInstance("Lagerhalle Tirol");
+        var adminSalt = cryptService.GenerateSecret(256);
+        var user1Salt = cryptService.GenerateSecret(256);
+        var user2Salt = cryptService.GenerateSecret(256);
+
+        var admin = new User(
+            username: "admin",
+            salt: adminSalt,
+            passwordHash: cryptService.GenerateHash(adminSalt, "1234"),
+            usertype: Usertype.Admin
+        );
+        Users.Add(admin);
+        SaveChanges();
+        
+        var user1 = new User(
+            username: "paul",
+            salt: user1Salt,
+            passwordHash: cryptService.GenerateHash(user1Salt, "paul"),
+            usertype: Usertype.Owner
+        );
+        Users.Add(user1);
+        SaveChanges();
+        
+        var user2 = new User(
+            username: "max",
+            salt: user2Salt,
+            passwordHash: cryptService.GenerateHash(user2Salt, "password"),
+            usertype: Usertype.Owner
+        );
+        Users.Add(user2);
+        SaveChanges();
+
+        var monitorInstance1 = new MonitorInstance("Kühlraum Wien",user1);
+        var monitorInstance2 = new MonitorInstance("Serverraum Graz",user1);
+        var monitorInstance3 = new MonitorInstance("Serverraum Klagenfurt",user1);
+        var monitorInstance4 = new MonitorInstance("Mainframe Wien",user1);
+        var monitorInstance5 = new MonitorInstance("Lagerhalle Tirol",user2);
 
         MonitorInstances.Add(monitorInstance1);
         MonitorInstances.Add(monitorInstance2);
@@ -53,17 +87,27 @@ public class NetMonitorContext : DbContext
         MonitorInstances.Add(monitorInstance4);
         MonitorInstances.Add(monitorInstance5);
         SaveChanges();
-        
-        
-        var host1 = new Host("PC_01", "192.168.10.10", new Description("PC beim Eingang","PC beim Eingang neben Feuerlöscher"));
-        var host2 = new Host("PC_02", "192.168.20.5", new Description("PC neben Kantine","PC neben Kantine auf schwarzem Stehtisch"));
-        var host3 = new Host("PC_03", "192.55.2.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
-        var host4 = new Host("MobilePhone_01", "192.168.1.22", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
-        var host5 = new Host("Heat-Sensor_01", "172.11.70.214", new Description("Heat Sensor","Heat Sensor, Cisco 200102, Version-number: CA2000"));
-        var host6 = new Host("IPad_1", "172.168.26.10", new Description("Ipad auf dem Tisch","IPad Pro 2022 links auf dem Schreibtisch"));
-        var host7 = new Host("Laptop_1", "172.168.21.10", new Description("Laptop auf dem Serverrack","15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
 
-        Hosts.AddRange(host1,host2,host3,host4,host5,host6,host7);
+
+        var host1 = new Host("PC_01", "192.168.10.10",
+            new Description("PC beim Eingang", "PC beim Eingang neben Feuerlöscher"));
+        var host2 = new Host("PC_02", "192.168.20.5",
+            new Description("PC neben Kantine", "PC neben Kantine auf schwarzem Stehtisch"));
+        var host3 = new Host("PC_03", "192.55.2.10",
+            new Description("Laptop auf dem Serverrack",
+                "15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
+        var host4 = new Host("MobilePhone_01", "192.168.1.22",
+            new Description("Laptop auf dem Serverrack",
+                "15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
+        var host5 = new Host("Heat-Sensor_01", "172.11.70.214",
+            new Description("Heat Sensor", "Heat Sensor, Cisco 200102, Version-number: CA2000"));
+        var host6 = new Host("IPad_1", "172.168.26.10",
+            new Description("Ipad auf dem Tisch", "IPad Pro 2022 links auf dem Schreibtisch"));
+        var host7 = new Host("Laptop_1", "172.168.21.10",
+            new Description("Laptop auf dem Serverrack",
+                "15 Zoll MacBook mit grauer Hülle auf dem mittleren Serverrack"));
+
+        Hosts.AddRange(host1, host2, host3, host4, host5, host6, host7);
         SaveChanges();
 
         monitorInstance1.AddHost(host1);
@@ -76,12 +120,13 @@ public class NetMonitorContext : DbContext
         SaveChanges();
 
         var service1 = new Service(host1, 100, 20, new Description("CPU-Temperatur check"));
-        var service2 = new Service(host1, 50, 5, new Description("Ping check","Ping check an Webserver"));
+        var service2 = new Service(host1, 50, 5, new Description("Ping check", "Ping check an Webserver"));
         var service3 = new Service(host2, 200, 100, new Description("Verbindung zum Schulserver check"));
         var service4 = new Service(host3, 10, 2, new Description("CPU-Temperatur check"));
         var service5 = new Service(host3, 10, 5, new Description("CPU-Auslastung check"));
-        var service6 = new Service(host3, 30, 15, new Description("Lüftung check","Lüftungs Auslastung wird überprüft"));
-        Services.AddRange(service1,service2,service3,service4,service5,service6);
+        var service6 = new Service(host3, 30, 15,
+            new Description("Lüftung check", "Lüftungs Auslastung wird überprüft"));
+        Services.AddRange(service1, service2, service3, service4, service5, service6);
         SaveChanges();
 
         host1.AddService(service1);
@@ -103,8 +148,8 @@ public class NetMonitorContext : DbContext
         var message17 = new Message(host1, service1, new Description("CPU-Temperatur bei 50 Grad Celsius"));
         var message8 = new Message(host1, service1, new Description("CPU-Lüftung wurde gesteigert"));
 
-        
-        Messages.AddRange(message1,message2,message3,message4,message5,message6,message17,message8);
+
+        Messages.AddRange(message1, message2, message3, message4, message5, message6, message17, message8);
         SaveChanges();
 
         service1.AddMessage(message1);
@@ -115,13 +160,16 @@ public class NetMonitorContext : DbContext
         service6.AddMessage(message6);
         SaveChanges();
 
-        var message7 = new Message(host3, service6, new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'", "Die Lüftung ist auf maximaler Stufe Ausgelastet"));
+        var message7 = new Message(host3, service6,
+            new Description("Lüftung maximal ausgelastet um 12:32 UTC+1'",
+                "Die Lüftung ist auf maximaler Stufe Ausgelastet"));
         var warning1 = new Warning(message7, 5, false);
         service6.AddMessage(warning1);
         Warnings.Add(warning1);
         SaveChanges();
 
-        var service7 = new Service(host3, 400, 200, new Description("Uptime test formatiert", "Uptime test mit formatierter Response"));
+        var service7 = new Service(host3, 400, 200,
+            new Description("Uptime test formatiert", "Uptime test mit formatierter Response"));
         var plugIn = new PlugIn(service7, "Uptime Test formatted", "https://plugins.netmonitor.com/pid=1200");
         host3.AddService(plugIn);
         PlugIn.Add(plugIn);

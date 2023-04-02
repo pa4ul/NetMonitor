@@ -1,0 +1,9 @@
+@page
+@inject NetMonitor.Webapp.Services.AuthService AuthService
+@model NetMonitor.Webapp.Pages.User.AccessDenied
+
+
+<h3>Kein Zugriff</h3>
+
+<p>Der Benutzer @AuthService.Username hat keinen Zugriff auf die angeforderte Seite.</p>
+<p><a href="/">Zurück zum Index</a></p>
