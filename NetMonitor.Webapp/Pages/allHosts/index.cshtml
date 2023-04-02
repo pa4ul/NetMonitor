@@ -87,9 +87,8 @@
 
 
 <button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-success"> <i class="fa-solid fa-plus"></i> Create New Host </button>
-<form method="post">
-
-    <button type="submit" asp-page-handler="add" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
+<form method="post" asp-page-handler="add">
+    <button type="submit"  onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
     <button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
     <table class="table table-sm">
         <thead>
@@ -99,7 +98,7 @@
             <th>Description</th>
             <th>Long Description</th>
             <th></th>
-            <th></th>
+            
         </tr>
         </thead>
         <tbody>
@@ -133,7 +132,6 @@
 
 
         </tr>
-
         @foreach (var h in Model.Hosts)
         {
             <tr class="tr">
@@ -149,21 +147,16 @@
                         </button>
                     </a>
                 </td>
-                <td class="text-center">
-                    <form method="post" asp-page-handler="DeleteHost">
-                        <input type="hidden" name="guid" value="@h.Guid"/>
-                        <button type="submit" class="btn btn-outline-danger">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
+                
             </tr>
         }
+
         </tbody>
     </table>
 </form>
 
 @section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
     <script> 
     let edit = window.location.href.indexOf("handler=edit") != -1; 
     function toggleMode() { edit = !edit; setDisplay(); } 

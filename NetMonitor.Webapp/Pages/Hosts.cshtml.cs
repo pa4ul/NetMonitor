@@ -6,6 +6,7 @@ using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NetMonitor.Model;
 using Host = NetMonitor.Model.Host;
@@ -73,9 +74,19 @@ public class Hosts : PageModel
 
     public IActionResult OnPostDelete()
     {
+        OnPostRemoveAllServices();
         var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
         _db.Hosts.Remove(host);
         _db.SaveChanges();
+        return RedirectToPage();
+    }
+
+    public IActionResult OnPostRemoveAllServices()
+    {
+        var host = _db.Hosts.Include(h => h.ServicesInUse).FirstOrDefault(h => h.Guid == Guid);
+        host.RemoveAllServices();
+        _db.SaveChanges();
+
         return RedirectToPage();
     }
 
@@ -87,7 +98,7 @@ public class Hosts : PageModel
         if (host is null) return RedirectToPage();
         host.AddService(service);
         _db.SaveChanges();
-        
+
         return RedirectToPage();
     }
 
@@ -98,7 +109,6 @@ public class Hosts : PageModel
         host.RemoveService(service);
         _db.SaveChanges();
         return RedirectToPage();
-        
     }
 
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)

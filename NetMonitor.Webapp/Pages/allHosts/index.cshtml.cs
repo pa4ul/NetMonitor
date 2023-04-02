@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NetMonitor.Cmd;
 using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using NetMonitor.Model;
@@ -17,7 +18,7 @@ public class Index : PageModel
     private readonly HostImportService _importService;
 
     public List<HostDto> Hosts = new List<HostDto>();
-    [BindProperty] public HostDto Host { get; set; } = default!;
+    [BindProperty] public HostCmd Host { get; set; } = default!;
     [BindProperty] public IFormFile? UploadedFile { get; set; }
     private static string[] _allowedTextExtensions = { ".txt", ".csv" };
     private static string[] _allowedExcelExtensions = { ".xls", ".xlsx" };
@@ -34,8 +35,7 @@ public class Index : PageModel
     public void OnGet()
     {
     }
-
-
+    
     public IActionResult OnPostAdd()
     {
         if (!ModelState.IsValid) return Page();

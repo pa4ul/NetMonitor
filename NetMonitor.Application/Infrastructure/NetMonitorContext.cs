@@ -40,6 +40,12 @@ public class NetMonitorContext : DbContext
 
         modelBuilder.Entity<Service>().HasAlternateKey(s => s.Guid);
         modelBuilder.Entity<Service>().Property(s => s.Guid).ValueGeneratedOnAdd();
+        
+                    
+        modelBuilder.Entity<Host>()
+            .HasMany(h => h.ServicesInUse)
+            .WithOne()
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
     public void Seed(ICryptService cryptService)

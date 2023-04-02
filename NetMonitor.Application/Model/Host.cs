@@ -62,6 +62,11 @@ public class Host
     {
         _servicesInUse.Remove(service);
     }
+    
+    public void RemoveAllServices()
+    {
+        _servicesInUse.Clear();
+    }
 
     public int CurrentServiceQuantity()
     {

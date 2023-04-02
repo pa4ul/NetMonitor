@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using NetMonitor.Model;
-using Host = Microsoft.Extensions.Hosting.Host;
 
 namespace NetMonitor.Webapp.Pages.allServices;
 [Authorize(Roles = "Admin")]
