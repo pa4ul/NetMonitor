@@ -39,8 +39,8 @@
                 <div>
                     @if (AuthService.IsAuthenticated)
                     {
-                        <p>Angemeldet als @AuthService.Username
-                        <small class="ms"><a asp-page="/User/Logout">Logout <i class="fa-solid fa-right-from-bracket"></i></a></small></p>
+                        <p> <a asp-page="User/Profile" class="text-black font-weight-bold">@Html.Raw("@")@AuthService.Username</a>
+                        <small class="ms"><a asp-page="/User/Logout"> <i class="fa-solid fa-right-from-bracket"></i></a></small></p>
                     }
                 </div>
             </div>

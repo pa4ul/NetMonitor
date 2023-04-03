@@ -30,4 +30,9 @@ public class User : IEntity<int>
     public string PasswordHash { get; set; }
     public Usertype Usertype { get; set; }
     public ICollection<MonitorInstance> MonitorInstances { get; } = new List<MonitorInstance>();
+
+    public void changeUsername()
+    {
+        Username = "test";
+    }
 }

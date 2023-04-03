@@ -2,6 +2,7 @@ using System.Net.Mime;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using NetMonitor.Infrastructure;
+using NetMonitor.Model;
 
 namespace NetMonitor.Webapp.Services;
 
