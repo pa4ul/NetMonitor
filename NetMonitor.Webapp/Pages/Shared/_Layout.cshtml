@@ -1,5 +1,5 @@
 ﻿@inject NetMonitor.Webapp.Services.AuthService AuthService
-
+@inject NetMonitor.Infrastructure.NetMonitorContext _db;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,11 +36,21 @@
                         <a class="nav-link text-dark" asp-area="" asp-page="/User/Login">Login</a>
                     </li>
                 </ul>
-                <div>
+                <div class="">
                     @if (AuthService.IsAuthenticated)
                     {
-                        <p> <a asp-page="User/Profile" class="text-black font-weight-bold">@Html.Raw("@")@AuthService.Username</a>
-                        <small class="ms"><a asp-page="/User/Logout"> <i class="fa-solid fa-right-from-bracket"></i></a></small></p>
+                        <p>
+                            <a asp-page="User/Profile" class="text-black font-weight-bold">
+                                <img style="width:80px" class="rounded-circle me-3" src="data:image/png;base64,@_db.Users.FirstOrDefault(u => u.Username == AuthService.Username).ImageData"/>
+
+                                @Html.Raw("@")@AuthService.Username
+                            </a>
+                            <small class="ms">
+                                <a asp-page="/User/Logout">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </a>
+                            </small>
+                        </p>
                     }
                 </div>
             </div>
