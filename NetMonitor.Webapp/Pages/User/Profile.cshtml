@@ -13,10 +13,19 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2 w-25" src="data:image/png;base64,@Model.UploadedFileData" alt=""/>
+                    @if (@Model.UploadedFileData is not null)
+                    {
+                        <img class="img-account-profile rounded-circle mb-2 w-25" src="data:image/png;base64,@Model.UploadedFileData" alt=""/>
+                    }
+                    else
+                    {
+                        <img class="rounded-circle me-3 w-25" src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"/>
+
+                    }
+
 
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <div class="small font-italic text-muted mb-4">PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
                     <form method="post" enctype="multipart/form-data" asp-page-handler="ImageImport">
                         <input class="form-control" type="file" asp-for="UploadedFile">
