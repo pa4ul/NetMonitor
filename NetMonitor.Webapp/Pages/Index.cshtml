@@ -12,21 +12,32 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var m in Model.MonitorInstances)
+    @if (!Model.isAuthenticated)
     {
-        <tr>
-            <td>@m.Name</td>
-            <td>
-                @foreach (var h in m.Hosts)
-                {
-                    <a asp-page="/Hosts" asp-route-guid="@h.Guid">
-                        <button type="button" class="btn btn-dark">@h.Hostname</button>
-
-                    </a>
-                }
-            </td>
-            <td>@m.Guid</td>
-        </tr>
+        <div class="alert alert-primary" role="alert">
+            Log in to see your monitor instances.
+        </div>
+    }
+    else
+    {
+        @foreach (var m in Model.MonitorInstances)
+        {
+            @if (Model.IsAdmin || m.Manager.Username == Model.Username)
+            {
+                <tr>
+                    <td>@m.Name</td>
+                    <td>
+                        @foreach (var h in m.Hosts)
+                        {
+                            <a asp-page="/Hosts" asp-route-guid="@h.Guid">
+                                <button type="button" class="btn btn-dark">@h.Hostname</button>
+                            </a>
+                        }
+                    </td>
+                    <td>@m.Guid</td>
+                </tr>
+            }
+        }
     }
     </tbody>
 </table>
