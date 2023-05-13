@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using NetMonitor.Dto;
 
-namespace NetMonitor.Dto;
+namespace NetMonitor.Webapp.Dto;
 
 public record HostDto(Guid Guid,
     [StringLength(255, MinimumLength = 1, ErrorMessage = "The hostname has to be between 1 and 255 characters.")] string Hostname,

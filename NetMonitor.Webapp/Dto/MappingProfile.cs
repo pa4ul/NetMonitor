@@ -14,6 +14,8 @@ public class MappingProfile : Profile
             .ForCtorParam("LongDescription",opt=>opt.MapFrom(src=>src.Description.longdescription));
 
         CreateMap<Message, MessageDto>()
-            .ForCtorParam("Description", opt => opt.MapFrom(src => src.Description));
+            .ForCtorParam(nameof(MessageDto.Description), opt => opt.MapFrom(src => src.Description.description))
+            .ForCtorParam(nameof(MessageDto.LongDescription), opt => opt.MapFrom(src => src.Description.longdescription));
+        
     }
 }

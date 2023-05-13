@@ -7,6 +7,7 @@ using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using NetMonitor.Model;
 using NetMonitor.Services;
+using NetMonitor.Webapp.Dto;
 using Host = NetMonitor.Model.Host;
 
 namespace NetMonitor.Webapp.Pages.allHosts;

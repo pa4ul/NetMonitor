@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
 using NetMonitor.Model;
+using NetMonitor.Webapp.Dto;
 using NetMonitor.Webapp.Services;
 using Host = NetMonitor.Model.Host;
 
