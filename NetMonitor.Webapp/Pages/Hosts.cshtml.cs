@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NetMonitor.Model;
+using NetMonitor.Webapp.Dto;
 using Host = NetMonitor.Model.Host;
 
 namespace NetMonitor.Webapp.Pages;

@@ -6,19 +6,44 @@ using NetMonitor.Services;
 using NetMonitor.Webapp.Services;
 using NetMonitor.Webapp.wwwroot.Dto;
 
-var opt = new DbContextOptionsBuilder()
-    .UseSqlite("Data Source=NetMonitor.db") // Keep connection open (only needed with SQLite in memory db)
-    .Options;
-using (var db = new NetMonitorContext(opt))
-{
-    db.Database.EnsureDeleted();
-    db.Database.EnsureCreated();
-    db.Seed(new CryptService());
-}
 
 var builder = WebApplication.CreateBuilder(args);
+
+var opt = builder.Environment.IsDevelopment()
+    ? new DbContextOptionsBuilder().UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
+        .EnableSensitiveDataLogging().Options
+    : new DbContextOptionsBuilder().UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")).Options;
+
+using (var db = new NetMonitorContext(opt))
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        db.Database.EnsureDeleted();
+    }
+
+    // Creating the tables when the database is empty or not present. 
+    if (db.Database.EnsureCreated()) // Initialize only 1 time.
+    {
+        db.Initialize(
+            new CryptService(),
+            Environment.GetEnvironmentVariable("STORE_ADMIN") ??
+            throw new ArgumentNullException("Die Variable STORE_ADMIN ist nicht gesetzt."));
+    }
+
+    if (builder.Environment.IsDevelopment())
+    {
+        db.Seed(new CryptService());
+    }
+}
+
 // Add services to the container.
-builder.Services.AddDbContext<NetMonitorContext>(opt => { opt.UseSqlite("Data Source=NetMonitor.db"); });
+builder.Services.AddDbContext<NetMonitorContext>(opt =>
+{
+    if (builder.Environment.IsDevelopment())
+        opt.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")).EnableSensitiveDataLogging();
+    else
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+});
 builder.Services.AddTransient<HostImportService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages();
@@ -46,6 +71,28 @@ builder.Services.AddAuthorization(o =>
 
 // MIDDLEWARE
 var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+} 
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
+// https://blog.elmah.io/the-asp-net-core-security-headers-guide/
+/*app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+    context.Response.Headers.Add("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
+    // https://wiki.selfhtml.org/wiki/Sicherheit/Content_Security_Policy
+    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:");
+    await next();
+});*/
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
