@@ -11,11 +11,12 @@ public class MappingProfile : Profile
         CreateMap<ServiceDto, Service>();
         CreateMap<Service, ServiceDto>()
             .ForCtorParam("Description", opt => opt.MapFrom(src => src.Description.description))
-            .ForCtorParam("LongDescription",opt=>opt.MapFrom(src=>src.Description.longdescription));
+            .ForCtorParam("LongDescription", opt => opt.MapFrom(src => src.Description.longdescription));
 
         CreateMap<Message, MessageDto>()
             .ForCtorParam(nameof(MessageDto.Description), opt => opt.MapFrom(src => src.Description.description))
-            .ForCtorParam(nameof(MessageDto.LongDescription), opt => opt.MapFrom(src => src.Description.longdescription));
-        
+            .ForCtorParam(nameof(MessageDto.LongDescription),
+                opt => opt.MapFrom(src => src.Description.longdescription))
+            .ForCtorParam(nameof(MessageDto.Type), opt => opt.MapFrom(src => src.MessageType));
     }
 }

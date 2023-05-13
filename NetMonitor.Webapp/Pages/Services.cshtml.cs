@@ -19,26 +19,16 @@ public class Services : PageModel
     }
 
     public ServiceDto Service { get; private set; } = default!;
-    
+
 
     public IActionResult OnGet(Guid guid)
     {
-        var service = _db.Services
-            .Where(s => s.Guid == guid)
-            .Select(s => new ServiceDto(s.Guid, s.Description.description, s.Description.longdescription,
-                s.NormalInterval, s.RetryInterval, s.ServiceType,
-                s.Messages.Select(m => new MessageDto(m.Description.description, m.Description.longdescription, m.Date,m.MessageType))
-                .ToList()))
-            .FirstOrDefault();
+        var service3 = _db.Services.Select(s => s).Where(s => s.Guid == guid);
 
-        var service2 = _db.Services.FirstOrDefault(s => s.Guid == guid);
-        Service = _mapper.Map<ServiceDto>(service2);
-        var service3 = _db.Services.Select(s=>s).Where(s=>s.Guid==guid);
+        var serviceDto = _mapper.ProjectTo<ServiceDto>(service3);
 
-        var test = _mapper.ProjectTo<ServiceDto>(service3);
-        
-        if (service is null) return RedirectToPage("/");
-        Service = service;
+        if (serviceDto is null) return RedirectToPage("/");
+        Service = serviceDto.FirstOrDefault();
         return Page();
     }
 }
