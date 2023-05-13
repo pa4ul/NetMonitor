@@ -15,7 +15,10 @@ public class HostImportService
     private class CsvRow
     {
         public string Hostname { get; set; } = default!;
-        [RegularExpression(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")] public string IPAddress { get; set; } = default!;
+
+        [RegularExpression(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")]
+        public string IPAddress { get; set; } = default!;
+
         public string DescriptionShort { get; set; } = default!;
         public string? DescriptionLong { get; set; } = default!;
     }
@@ -61,39 +64,57 @@ public class HostImportService
             return (false, $"Fehler beim Lesen der Zeile {ex.Context.Parser.Row}: {ex.Message}");
         }
     }
-    
+
     public (bool success, string message) LoadExcel(Stream stream, int maxRows = 1000)
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         using var reader = ExcelReaderFactory.CreateReader(stream);
-        reader.Read();  // Ignore header
+        reader.Read(); // Ignore header
         var csvRows = new List<CsvRow>(1024);
         int rowNumber = 0;
         while (reader.Read() && rowNumber++ < maxRows)
         {
-            if (reader.FieldCount < 4) { break; }
-            if (reader.IsDBNull(0)) { break; }
+            if (reader.FieldCount < 4)
+            {
+                break;
+            }
+
+            if (reader.IsDBNull(0))
+            {
+                break;
+            }
+
             try
             {
                 csvRows.Add(new CsvRow
                 {
-                    Hostname = reader.IsDBNull(0) ? throw new ApplicationException("Invalid Hostname") : reader.GetString(0),
+                    Hostname = reader.IsDBNull(0)
+                        ? throw new ApplicationException("Invalid Hostname")
+                        : reader.GetString(0),
                     IPAddress = reader.IsDBNull(1) ? throw new ApplicationException("Invalid IP") : reader.GetString(1),
-                    DescriptionShort = reader.IsDBNull(2) ? throw new ApplicationException("Invalid Description Short") : reader.GetString(2),
+                    DescriptionShort = reader.IsDBNull(2)
+                        ? throw new ApplicationException("Invalid Description Short")
+                        : reader.GetString(2),
                     DescriptionLong = reader.GetString(3),
                 });
             }
-            catch { }  // Ignore invalid rows
+            catch
+            {
+            } // Ignore invalid rows
         }
+
         return WriteToDatabase(csvRows);
     }
 
 
     private (bool success, string message) WriteToDatabase(IEnumerable<CsvRow> csvRows)
     {
-        //var existingIPs = _db.Hosts.Select(h => h.IPAddress).ToHashSet();
-        var newHosts = csvRows.Select(h => new Host(hostname: h.Hostname, ipaddress: h.IPAddress,
-            description: new Description(h.DescriptionShort, h.DescriptionLong)));
+        var existingHosts = _db.Hosts.Select(h => h.Hostname).ToHashSet();
+        var newHosts = csvRows
+            .Where(h=>!existingHosts.Contains(h.Hostname))
+            .Select(h => new Host(hostname: h.Hostname, ipaddress: h.IPAddress,
+                description: new Description(h.DescriptionShort, h.DescriptionLong)));
+
         _db.Hosts.AddRange(newHosts);
         try
         {

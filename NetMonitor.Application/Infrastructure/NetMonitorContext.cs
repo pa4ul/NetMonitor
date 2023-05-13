@@ -47,22 +47,22 @@ public class NetMonitorContext : DbContext
             .WithOne()
             .OnDelete(DeleteBehavior.NoAction);
     }
-
-    public void Seed(ICryptService cryptService)
+    public void Initialize(CryptService cryptService, string adminPassword)
     {
         var adminSalt = cryptService.GenerateSecret(256);
-        var user1Salt = cryptService.GenerateSecret(256);
-        var user2Salt = cryptService.GenerateSecret(256);
-
         var admin = new User(
             username: "admin",
             salt: adminSalt,
-            passwordHash: cryptService.GenerateHash(adminSalt, "1234"),
-            usertype: Usertype.Admin
-        );
+            passwordHash: cryptService.GenerateHash(adminSalt, adminPassword),
+            usertype: Usertype.Admin);
         Users.Add(admin);
         SaveChanges();
-        
+    }
+    public void Seed(ICryptService cryptService)
+    {
+        var user1Salt = cryptService.GenerateSecret(256);
+        var user2Salt = cryptService.GenerateSecret(256);
+
         var user1 = new User(
             username: "paul",
             salt: user1Salt,
