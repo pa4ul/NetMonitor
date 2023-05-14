@@ -8,7 +8,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<ServiceDto, Service>();
+        CreateMap<ServiceDto, Service>().ForMember(o => o.Guid,
+            opt => opt.MapFrom(o => o.Guid == default ? Guid.NewGuid() : o.Guid));
         CreateMap<Service, ServiceDto>()
             .ForCtorParam("Description", opt => opt.MapFrom(src => src.Description.description))
             .ForCtorParam("LongDescription", opt => opt.MapFrom(src => src.Description.longdescription));

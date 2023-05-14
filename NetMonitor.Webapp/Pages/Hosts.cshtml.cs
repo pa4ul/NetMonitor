@@ -7,6 +7,8 @@ using NetMonitor.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Metrics;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NetMonitor.Model;
 using NetMonitor.Webapp.Dto;
@@ -17,10 +19,12 @@ namespace NetMonitor.Webapp.Pages;
 public class Hosts : PageModel
 {
     private readonly NetMonitorContext _db;
+    private readonly IMapper _mapper;
 
-    public Hosts(NetMonitorContext db)
+    public Hosts(NetMonitorContext db, IMapper mapper)
     {
         _db = db;
+        _mapper = mapper;
     }
 
     // We need the Guid in the post route, we can define a global property
@@ -114,7 +118,6 @@ public class Hosts : PageModel
 
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {
-        // Hint: Define a ServiceDto without a messagelist and a ServiceDetailDto with a messagelist.
         var host = _db.Hosts.Where(h => h.Guid == Guid).Select(h => new HostDto(h.Guid, h.Hostname,
             h.Description.description, h.Description.longdescription, h.IPAddress,
             h.ServicesInUse.Select(s => new ServiceDto(s.Guid, s.Description.description, s.Description.longdescription,
@@ -126,5 +129,7 @@ public class Hosts : PageModel
         }
 
         Host = host;
+
+        
     }
 }
