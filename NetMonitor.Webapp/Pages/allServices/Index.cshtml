@@ -61,7 +61,10 @@
         @foreach (var s in Model.Services)
         {
             <tr class="tr">
-                <td class="td-desc">@s.Description</td>
+                <td class="td-desc">
+                    <input type="hidden" asp-for="EditServices[s.Guid].Guid"></input>
+                    @s.Description
+                </td>
                 <td class="td-inter">
                     <input asp-for="EditServices[s.Guid].NormalInterval"/>
                 </td>

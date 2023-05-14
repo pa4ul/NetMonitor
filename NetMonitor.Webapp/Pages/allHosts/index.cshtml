@@ -13,6 +13,12 @@
     .td-desc{
         width: 25%;
     }
+    .first_subnet{
+        background-color: #dfe6e9 ;
+    }
+    .second_subnet{
+        background-color: #81ecec;
+    }
     .tr:hover{background-color: lightgrey}
     .td-desclong{width: 45%;}
     .validation span{color: red;}
@@ -88,7 +94,7 @@
 
 <button type="button" onclick="toggleMode()" class="nonEdit btn btn-outline-success"> <i class="fa-solid fa-plus"></i> Create New Host </button>
 <form method="post" asp-page-handler="add">
-    <button type="submit"  onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
+    <button type="submit" onclick="toggleMode()" class="edit btn btn-outline-success"> <i class="fa-solid fa-check"></i> Finish </button>
     <button type="reset" onclick="toggleMode()" class="edit btn btn-outline-danger"> <i class="fa-solid fa-rectangle-xmark"></i> Cancel </button>
     <table class="table table-sm">
         <thead>
@@ -98,7 +104,7 @@
             <th>Description</th>
             <th>Long Description</th>
             <th></th>
-            
+
         </tr>
         </thead>
         <tbody>
@@ -134,7 +140,7 @@
         </tr>
         @foreach (var h in Model.Hosts)
         {
-            <tr class="tr">
+            <tr class="tr @(h.IPAddress.Substring(0, 3).Equals("192") ? "first_subnet" : null) @(h.IPAddress.Substring(0, 3).Equals("172") ? "second_subnet" : null)">
                 <td class="td-name"> @h.Hostname</td>
                 <td class="td-ip"> @h.IPAddress</td>
                 <td class="td-desc"> @h.Description</td>
@@ -147,7 +153,7 @@
                         </button>
                     </a>
                 </td>
-                
+
             </tr>
         }
 

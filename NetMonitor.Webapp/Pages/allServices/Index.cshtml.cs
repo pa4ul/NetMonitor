@@ -17,10 +17,12 @@ public class Index : PageModel
 {
     private readonly NetMonitorContext _db;
     private readonly IMapper _mapper;
-    [BindProperty] public Dictionary<Guid, ServiceDto> EditServices { get; set; } = new();
+    [BindProperty] public Dictionary<Guid, EditServiceCmd> EditServices { get; set; } = new();
     public List<ServiceDto> Services = default!;
     [BindProperty] public ServiceCmd Service { get; set; } = default!;
 
+    public record EditServiceCmd(Guid Guid, int NormalInterval, int RetryInterval);
+    
     public Index(NetMonitorContext db, IMapper mapper)
     {
         _db = db;
@@ -29,7 +31,7 @@ public class Index : PageModel
 
     public IActionResult OnGet()
     {
-        EditServices = _db.Services.ProjectTo<ServiceDto>(_mapper.ConfigurationProvider)
+        EditServices = _db.Services.ProjectTo<EditServiceCmd>(_mapper.ConfigurationProvider)
             .ToDictionary(s => s.Guid, s => s);
         return Page();
     }
