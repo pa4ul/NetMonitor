@@ -103,7 +103,14 @@
 
 <form method="post" asp-page-handler="RemoveAllServices">
     <div class="mt-4 mb-4">
-        <button type="submit" class="btn btn-outline-danger">Remove all services</button>
+        <button type="button" class="deleteAllWrapper btn btn-outline-danger" onclick="deleteAll()" class="btn btn-outline-danger">Remove all services</button>
+        <div class="deleteAll" hidden="true">
+            <div class="alert alert-danger" role="alert">
+                Do you really want to remove all services?
+            </div>
+            <button type="submit" class="btn btn-outline-danger">Yes</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="deleteAll()">Cancel</button>
+        </div>
     </div>
 </form>
 <table class="table table-sm align-middle">
@@ -129,7 +136,6 @@
             <td> @s.ServiceType</td>
             <td class="text-center">
                 <a asp-page="/Services" asp-route-guid="@s.Guid">
-
                     <button type="button" class="btn btn-outline-info">
                         <i class="fa-solid fa-circle-info fa-lg"></i>
                     </button>
@@ -138,9 +144,12 @@
             <td class="text-center">
                 <form method="post" asp-page-handler="RemoveService">
                     <input type="hidden" name="guid" value="@s.Guid"/>
-                    <button type="submit" class="btn btn-outline-danger">
+
+
+                    <button type="submit" class="removeSingleWrapper btn btn-outline-danger">
                         <i class="fa-solid fa-trash"></i>
                     </button>
+
                 </form>
             </td>
         </tr>
@@ -155,6 +164,12 @@
     function setDisplay() { 
         for (const el of document.querySelectorAll('.nonEdit')) el.hidden = edit; 
         for (const el of document.querySelectorAll('.edit')) el.hidden = !edit; 
+    }
+    function deleteAll(){
+        var origin = document.querySelector('.deleteAllWrapper');
+        var confirm = document.querySelector('.deleteAll');
+        origin.hidden =  !origin.hidden;
+        confirm.hidden = !confirm.hidden;
     }
     setDisplay(); 
     </script>
