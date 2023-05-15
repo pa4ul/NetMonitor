@@ -48,6 +48,7 @@ builder.Services.AddTransient<HostImportService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<UserRepository>();
+builder.Services.AddTransient<InstanceRepository>();
 
 // Services for authentication
 builder.Services.AddHttpContextAccessor();
