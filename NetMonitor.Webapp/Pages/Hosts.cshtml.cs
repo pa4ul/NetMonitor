@@ -76,16 +76,27 @@ public class Hosts : PageModel
         // Redirect after POST
         return RedirectToPage();
     }
-
     public IActionResult OnPostDelete()
     {
-        OnPostRemoveAllServices();
         var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
-        _db.Hosts.Remove(host);
+        var messages = _db.Messages.Where(m => m.Host.Guid == Guid).ToList();
+        var services = _db.Services.Where(s => s.Host.Guid == Guid).ToList();
+        _db.Messages.RemoveRange(messages);
+        _db.Services.RemoveRange(services);
+
         _db.SaveChanges();
+        _db.Hosts.Remove(host);
+        try
+        {
+            _db.SaveChanges();
+
+        }
+        catch (DbUpdateException e)
+        {
+            Console.WriteLine(e.InnerException?.Message);
+        }
         return RedirectToPage();
     }
-
     public IActionResult OnPostRemoveAllServices()
     {
         var host = _db.Hosts.Include(h => h.ServicesInUse).FirstOrDefault(h => h.Guid == Guid);
@@ -94,7 +105,6 @@ public class Hosts : PageModel
 
         return RedirectToPage();
     }
-
     public IActionResult OnPostAssignService()
     {
         var service = _db.Services.FirstOrDefault(s => s.Guid == ServiceGuid);
@@ -106,16 +116,15 @@ public class Hosts : PageModel
 
         return RedirectToPage();
     }
-
     public IActionResult OnPostRemoveService(Guid guid)
     {
         var service = _db.Services.FirstOrDefault(s => s.Guid == guid);
-        var host = _db.Hosts.FirstOrDefault(h => h.Guid == Guid);
+        var host = _db.Hosts
+            .FirstOrDefault(h => h.Guid == Guid);
         host.RemoveService(service);
         _db.SaveChanges();
         return RedirectToPage();
     }
-
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {
         var host = _db.Hosts.Where(h => h.Guid == Guid).Select(h => new HostDto(h.Guid, h.Hostname,
@@ -127,9 +136,6 @@ public class Hosts : PageModel
             context.Result = Redirect("/");
             return;
         }
-
         Host = host;
-
-        
     }
 }
