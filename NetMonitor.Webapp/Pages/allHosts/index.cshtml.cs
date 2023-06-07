@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetMonitor.Cmd;
 using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
+using NetMonitor.Infrastructure.Repositories;
 using NetMonitor.Model;
 using NetMonitor.Services;
 using NetMonitor.Webapp.Dto;
@@ -17,6 +18,7 @@ public class Index : PageModel
 {
     private readonly NetMonitorContext _db;
     private readonly HostImportService _importService;
+    private readonly HostRepository _repository;
 
     public List<HostDto> Hosts = new List<HostDto>();
     [BindProperty] public HostCmd Host { get; set; } = default!;
@@ -27,10 +29,11 @@ public class Index : PageModel
     [TempData] public string? Message { get; set; }
 
 
-    public Index(NetMonitorContext db, HostImportService importService)
+    public Index(NetMonitorContext db, HostImportService importService, HostRepository repository)
     {
         _db = db;
         _importService = importService;
+        _repository = repository;
     }
 
     public void OnGet()
@@ -39,19 +42,18 @@ public class Index : PageModel
     
     public IActionResult OnPostAdd()
     {
-        if (!ModelState.IsValid) return Page();
-        var host = new Host(Host.Hostname, Host.IPAddress, new Description(Host.Description, Host.LongDescription));
+        /*var host = new Host(Host.Hostname, Host.IPAddress, new Description(Host.Description, Host.LongDescription));
         _db.Hosts.Add(host);
-        _db.SaveChanges();
+        _db.SaveChanges();*/
+        
+        if (!ModelState.IsValid) return Page();
+        _repository.AllHostsAdd(Host);
         return RedirectToPage();
     }
 
     public IActionResult OnPostDeleteHost(Guid guid)
     {
-        var host = _db.Hosts.FirstOrDefault(h => h.Guid == guid);
-        _db.Hosts.Remove(host);
-        _db.SaveChanges();
-
+        _repository.AllHostsDeleteHost(guid);
         return RedirectToPage();
     }
 

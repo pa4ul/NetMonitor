@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NetMonitor.Dto;
 using NetMonitor.Infrastructure;
+using NetMonitor.Infrastructure.Repositories;
 using NetMonitor.Model;
 using NetMonitor.Webapp.Dto;
 
@@ -16,17 +17,19 @@ namespace NetMonitor.Webapp.Pages.allServices;
 public class Index : PageModel
 {
     private readonly NetMonitorContext _db;
+    private readonly ServiceRepository _repository;
     private readonly IMapper _mapper;
     [BindProperty] public Dictionary<Guid, EditServiceCmd> EditServices { get; set; } = new();
     public List<ServiceDto> Services = default!;
     [BindProperty] public ServiceCmd Service { get; set; } = default!;
 
     public record EditServiceCmd(Guid Guid, int NormalInterval, int RetryInterval);
-    
-    public Index(NetMonitorContext db, IMapper mapper)
+
+    public Index(NetMonitorContext db, IMapper mapper, ServiceRepository repository)
     {
         _db = db;
         _mapper = mapper;
+        _repository = repository;
     }
 
     public IActionResult OnGet()
@@ -39,10 +42,11 @@ public class Index : PageModel
     public IActionResult OnPostAdd()
     {
         if (!ModelState.IsValid) return Page();
-        var service = new Service(null, Service.NormalInterval, Service.RetryInterval,
+        _repository.Add(Service);
+        /*var service = new Service(null, Service.NormalInterval, Service.RetryInterval,
             new Description(Service.Description, Service.LongDescription));
         _db.Services.Add(service);
-        _db.SaveChanges();
+        _db.SaveChanges();*/
         return RedirectToPage();
     }
 
@@ -61,7 +65,7 @@ public class Index : PageModel
         var services = _db.Services.Select(s => new ServiceDto(s.Guid, s.Description.description,
             s.Description.longdescription, s.NormalInterval, s.RetryInterval, s.ServiceType,
             new List<MessageDto>())).ToList();
-        
+
         Services = services;
     }
 }
